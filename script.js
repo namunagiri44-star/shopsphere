@@ -1,48 +1,45 @@
-// 1. Splash Screen Logic
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const splash = document.getElementById('splash');
-        splash.style.opacity = '0';
-        setTimeout(() => splash.style.display = 'none', 500);
-    }, 2000);
-});
-
-// 2. Start Shopping (Entry Button)
-function startShopping() {
-    document.getElementById('start-screen').style.display = 'none';
-    document.getElementById('home-page').style.display = 'block';
-    
-    // Trigger the Red & White Modal 1.5 seconds after entry
-    setTimeout(() => {
-        document.getElementById('promoModal').style.display = 'flex';
-    }, 1500);
+/* Splash Screen */
+#splash {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000; /* or image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    z-index: 1000;
 }
 
-// 3. Page Navigation
-function openPage(pageId) {
-    // Hide all main containers
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(p => p.style.display = 'none');
-    
-    // Show the targeted page
-    document.getElementById(pageId).style.display = 'block';
-    
-    // If navigating to Inventory, ensure home-page structure is hidden/shown correctly
-    if(pageId === 'shop-page') {
-        document.getElementById('home-page').style.display = 'block';
-        window.scrollTo({ top: 800, behavior: 'smooth' });
-    }
+/* Start Screen */
+#start-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
 }
 
-// 4. Modal Functions
-function closeModal() {
-    document.getElementById('promoModal').style.display = 'none';
+/* Modal */
+#promoModal {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width: 100%; height:100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
 }
 
-// 5. Cart Management
-let cartCount = 0;
-function addCart() {
-    cartCount++;
-    document.getElementById('cart-count').innerText = cartCount;
-    alert("Industrial item added to your quote request!");
+/* Home Page */
+#home-page {
+    display: none;
+    padding: 20px;
+}
+
+/* Cart */
+#cart-count {
+    font-weight: bold;
+    color: red;
 }
