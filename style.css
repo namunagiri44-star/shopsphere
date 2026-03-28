@@ -433,4 +433,46 @@ textarea:focus {
         padding: 10px;
         font-size: 14px;
     }
+    /* Splash Screen */
+#splash {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #111;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    animation: fadeOut 1s ease forwards;
+    animation-delay: 2s;
+}
+
+.splash-logo {
+    font-size: 3rem;
+    letter-spacing: 3px;
+    animation: zoomIn 1.5s ease;
+}
+
+.splash-logo span {
+    color: #ff6b6b;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
 }
