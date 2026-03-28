@@ -6,12 +6,41 @@
     <title>ShopSphere | E-commerce</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Inline animations for splash and modal */
+        @keyframes fadeZoomIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeZoomOut {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+
+        .animate-fade-zoom-in {
+            animation: fadeZoomIn 1s ease forwards;
+        }
+
+        .animate-fade-zoom-out {
+            animation: fadeZoomOut 0.5s ease forwards;
+        }
+
+        .modal-content img {
+            width: 100px;
+            margin-bottom: 10px;
+            animation: fadeZoomIn 1s ease;
+        }
+    </style>
 </head>
 <body>
 
     <!-- 1. Splash Screen -->
     <div id="splash">
-        <h1>ShopSphere</h1>
+        <img src="https://images.unsplash.com/photo-1591012911206-7d940d0dfbb6?auto=format&fit=crop&w=800&q=80" 
+             alt="ShopSphere Logo" 
+             style="width:200px; border-radius:20px;"
+             class="animate-fade-zoom-in">
     </div>
 
     <!-- 2. Start Screen -->
@@ -30,18 +59,18 @@
             <h3>Featured Products</h3>
             <div class="products">
                 <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product 1">
-                    <p>Product 1</p>
+                    <img src="https://images.unsplash.com/photo-1606813905800-1e9c17bde11b?auto=format&fit=crop&w=150&q=80" alt="Product 1">
+                    <p>Leather Bag</p>
                     <button onclick="addCart()">Add to Quote</button>
                 </div>
                 <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product 2">
-                    <p>Product 2</p>
+                    <img src="https://images.unsplash.com/photo-1593032465175-6c0b6b22086a?auto=format&fit=crop&w=150&q=80" alt="Product 2">
+                    <p>Running Shoes</p>
                     <button onclick="addCart()">Add to Quote</button>
                 </div>
                 <div class="product">
-                    <img src="https://via.placeholder.com/150" alt="Product 3">
-                    <p>Product 3</p>
+                    <img src="https://images.unsplash.com/photo-1616627989634-f14c8e6fa9d7?auto=format&fit=crop&w=150&q=80" alt="Product 3">
+                    <p>Smart Watch</p>
                     <button onclick="addCart()">Add to Quote</button>
                 </div>
             </div>
@@ -58,13 +87,13 @@
         </header>
         <section class="products">
             <div class="product">
-                <img src="https://via.placeholder.com/150" alt="Product A">
-                <p>Product A</p>
+                <img src="https://images.unsplash.com/photo-1580910051078-68f7b6b09b2d?auto=format&fit=crop&w=150&q=80" alt="Product A">
+                <p>Headphones</p>
                 <button onclick="addCart()">Add to Quote</button>
             </div>
             <div class="product">
-                <img src="https://via.placeholder.com/150" alt="Product B">
-                <p>Product B</p>
+                <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb14?auto=format&fit=crop&w=150&q=80" alt="Product B">
+                <p>Sunglasses</p>
                 <button onclick="addCart()">Add to Quote</button>
             </div>
         </section>
@@ -73,6 +102,7 @@
     <!-- 5. Promo Modal -->
     <div id="promoModal">
         <div class="modal-content">
+            <img src="https://images.unsplash.com/photo-1598514982053-1f2a44f7cdbf?auto=format&fit=crop&w=100&q=80" alt="Promo">
             <h3>Special Offer!</h3>
             <p>Get 10% off your first order.</p>
             <button onclick="closeModal()">Close</button>
@@ -80,5 +110,15 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Add fade-zoom-out to splash when hiding
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splashImg = document.querySelector('#splash img');
+                splashImg.classList.add('animate-fade-zoom-out');
+                setTimeout(() => document.getElementById('splash').style.display = 'none', 500);
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
