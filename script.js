@@ -1,45 +1,38 @@
-/* Splash Screen */
-#splash {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000; /* or image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-    z-index: 1000;
+// 1. Splash Screen
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const splash = document.getElementById('splash');
+        splash.style.opacity = '0';
+        setTimeout(() => splash.style.display = 'none', 500);
+    }, 2000);
+});
+
+// 2. Start Shopping
+function startShopping() {
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('home-page').style.display = 'block';
+
+    setTimeout(() => {
+        document.getElementById('promoModal').style.display = 'flex';
+    }, 1500);
 }
 
-/* Start Screen */
-#start-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #fff;
+// 3. Page Navigation
+function openPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.style.display = 'none');
+    document.getElementById(pageId).style.display = 'block';
 }
 
-/* Modal */
-#promoModal {
-    display: none;
-    position: fixed;
-    top:0; left:0;
-    width: 100%; height:100%;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
+// 4. Modal
+function closeModal() {
+    document.getElementById('promoModal').style.display = 'none';
 }
 
-/* Home Page */
-#home-page {
-    display: none;
-    padding: 20px;
-}
-
-/* Cart */
-#cart-count {
-    font-weight: bold;
-    color: red;
+// 5. Cart
+let cartCount = 0;
+function addCart() {
+    cartCount++;
+    document.getElementById('cart-count').innerText = cartCount;
+    alert("Item added to your quote request!");
 }
