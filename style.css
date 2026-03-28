@@ -10,8 +10,8 @@ body {
     background-color: #f5f5f5;
     color: #333;
 }
-/* ===== START SCREEN ===== */
-#start-screen {
+/* ===== SPLASH SCREEN ===== */
+#splash-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -19,82 +19,57 @@ body {
     height: 100%;
     background: linear-gradient(135deg, #ff6347, #ff9068);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    animation: fadeInScreen 1s ease forwards;
-}
-
-.start-content {
-    text-align: center;
-    color: #fff;
     font-family: 'Poppins', sans-serif;
-    animation: scaleIn 1s ease forwards;
+    color: #fff;
+    animation: splashFade 1s ease forwards;
 }
 
-.start-content h1 {
-    font-size: 3rem;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
+#splash-screen h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    animation: logoPop 1s ease forwards;
 }
 
-.start-content button {
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    background-color: #fff;
-    color: #ff6347;
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s;
+#splash-screen h1 span {
+    color: #fff;
 }
 
-.start-content button:hover {
-    transform: scale(1.05);
-    background-color: #ffe6e0;
+#splash-screen p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    animation: fadeUp 1s ease forwards;
 }
 
 /* ===== ANIMATIONS ===== */
-@keyframes fadeInScreen {
+@keyframes logoPop {
+    0% {transform: scale(0.5); opacity: 0;}
+    100% {transform: scale(1); opacity: 1;}
+}
+
+@keyframes fadeUp {
+    0% {opacity: 0; transform: translateY(20px);}
+    100% {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes splashFade {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
 
-@keyframes scaleIn {
-    0% {transform: scale(0.8); opacity: 0;}
-    100% {transform: scale(1); opacity: 1;}
+/* Fade out animation when removing splash */
+.fade-out {
+    animation: fadeOutSplash 0.8s ease forwards;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+@keyframes fadeOutSplash {
+    0% {opacity: 1;}
+    100% {opacity: 0; display: none;}
 }
-
-/* ===== SPLASH SCREEN ===== */
-#splash {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #1a1a1a;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.8s ease;
-}
-
-.splash-logo {
-    font-size: 3rem;
-}
-
-.splash-logo span {
-    color: #ff6347;
-}
-
 /* ===== NAVBAR ===== */
 .navbar {
     display: flex;
