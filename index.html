@@ -3,139 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoStore | Cyber Shopping</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <title>ShopSphere | Luxury Shopping Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --cyber-bg: #0a0a0a;
-            --neon-cyan: #00ffff;
-            --neon-pink: #ff00ff;
-            --neon-blue: #0066ff;
-            --gold-glow: #ffd700;
-            --glass-dark: rgba(255,255,255,0.05);
-            --scanline-glow: 0 0 20px rgba(0,255,255,0.5);
+            --bg-gradient: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            --glass-bg: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.2);
+            --neon-glow: #00d4ff;
+            --gold: #ffd700;
+            --shadow-neon: 0 0 30px rgba(0,212,255,0.3);
+            --radius: 24px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background: var(--cyber-bg); color: #fff; font-family: 'Roboto Mono', monospace;
-            overflow-x: hidden; position: relative;
+            font-family: 'Poppins', sans-serif; background: var(--bg-gradient);
+            color: white; overflow-x: hidden; min-height: 100vh;
         }
 
-        /* Matrix Rain Effect */
-        canvas { position: fixed; top: 0; left: 0; z-index: 1; }
-
-        /* Glitch Header */
-        .glitch {
-            position: relative; font-family: 'Orbitron', monospace; font-weight: 900;
-            animation: glitch 2s infinite;
+        /* Particles Background */
+        #particles {
+            position: fixed; inset: 0; z-index: -1;
+            background: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3) 0%, transparent 50%);
+            animation: bgShift 15s ease infinite;
         }
-        .glitch::before, .glitch::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
-        .glitch::before { animation: glitch-anim-1 2s infinite; color: var(--neon-cyan); }
-        .glitch::after { animation: glitch-anim-2 2s infinite; color: var(--neon-pink); }
 
         /* Splash Screen */
         #splash {
-            position: fixed; inset: 0; background: #000;
+            position: fixed; inset: 0; background: var(--bg-gradient);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 10000;
+            z-index: 10000; backdrop-filter: blur(20px);
         }
-        #splash h1 {
-            font-size: clamp(4rem, 15vw, 8rem); color: var(--neon-cyan);
-            text-shadow: var(--scanline-glow), 0 0 40px var(--neon-cyan);
-            animation: flicker 1.5s infinite alternate;
+        #splash::after {
+            content: 'Loading...'; font-size: 1.2rem; margin-top: 2rem;
+            animation: pulseGlow 2s infinite; color: var(--neon-glow);
         }
-        .loading-bar {
-            width: 300px; height: 8px; background: rgba(255,255,255,0.1); margin-top: 3rem;
-            border-radius: 4px; overflow: hidden; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-        }
-        .loading-progress {
-            height: 100%; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
-            width: 0%; animation: load 3s ease-out forwards; box-shadow: var(--scanline-glow);
+        #splash img {
+            width: clamp(200px, 30vw, 300px); border-radius: var(--radius);
+            box-shadow: var(--shadow-neon), 0 0 60px rgba(0,212,255,0.5);
+            animation: float3d 4s ease-in-out infinite;
         }
 
-        /* Main Layout */
-        .page { 
-            min-height: 100vh; padding: 80px 40px; display: none; position: relative; z-index: 10;
+        /* Hero Section */
+        #start-screen {
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            position: relative; overflow: hidden;
         }
-        .page.active { display: block; animation: scanIn 1s ease-out; }
+        .hero-content {
+            text-align: center; background: var(--glass-bg); backdrop-filter: blur(30px);
+            padding: 4rem 3rem; border-radius: var(--radius); border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-neon);
+        }
+        .hero-title {
+            font-size: clamp(4rem, 10vw, 7rem); font-weight: 800; margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--gold), var(--neon-glow), #ff6b9d);
+            background-size: 300% 300%; animation: gradientShift 3s ease infinite;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle {
+            font-size: 1.5rem; opacity: 0.9; margin-bottom: 3rem; font-weight: 500;
+        }
+        .cta-hero {
+            padding: 1.5rem 4rem; font-size: 1.4rem; font-weight: 700; border: none;
+            border-radius: var(--radius); cursor: pointer; background: linear-gradient(45deg, var(--gold), #ffed4a);
+            color: #1a1a2e; box-shadow: 0 15px 35px rgba(255,215,0,0.4);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative; overflow: hidden;
+        }
+        .cta-hero:hover {
+            transform: translateY(-15px) scale(1.05); box-shadow: 0 25px 50px rgba(255,215,0,0.6);
+        }
+        .cta-hero::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.7s;
+        }
+        .cta-hero:hover::before { left: 100%; }
 
+        /* Pages */
+        .page { display: none; min-height: 100vh; padding: 60px 20px; }
+        .page.active { display: block; animation: slideInUp 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        
         .container { max-width: 1400px; margin: 0 auto; }
-
-        /* Header */
         header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 60px;
-            background: var(--glass-dark); backdrop-filter: blur(20px); padding: 20px 40px;
-            border: 1px solid rgba(0,255,255,0.3); border-radius: 12px; box-shadow: var(--scanline-glow);
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem;
+            background: var(--glass-bg); backdrop-filter: blur(20px); padding: 2rem;
+            border-radius: var(--radius); border: 1px solid var(--glass-border);
         }
-        .title-glitch {
-            font-size: 2.5rem; margin: 0;
+        .page-title {
+            font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;
+            background: linear-gradient(45deg, var(--gold), var(--neon-glow));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .cart-holo {
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink)); padding: 15px 25px;
-            border-radius: 25px; font-weight: 700; cursor: pointer; position: relative;
-            box-shadow: 0 0 25px var(--neon-cyan);
+        .cart-badge {
+            background: linear-gradient(45deg, var(--neon-glow), #00d4ff); padding: 1.2rem 2rem;
+            border-radius: var(--radius); font-weight: 700; cursor: pointer; position: relative;
+            box-shadow: var(--shadow-neon);
         }
-        .cart-count {
-            background: var(--neon-pink); color: #000; border-radius: 50%; width: 35px; height: 35px;
-            display: inline-flex; align-items: center; justify-content: center; margin-left: 10px;
-            font-weight: 900; box-shadow: 0 0 15px var(--neon-pink); animation: pulseHolo 1.5s infinite;
+        .cart-badge:hover { transform: scale(1.05); }
+        #cart-count {
+            background: var(--gold); color: #1a1a2e; border-radius: 50%; width: 35px; height: 35px;
+            display: inline-flex; align-items: center; justify-content: center; font-weight: 800;
+            margin-left: 0.8rem; box-shadow: 0 0 20px rgba(255,215,0,0.8); animation: bounce 2s infinite;
         }
 
         /* Product Grid */
         .products {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem;
         }
-        .product-holo {
-            background: var(--glass-dark); border: 1px solid rgba(0,255,255,0.2);
-            border-radius: 20px; padding: 30px; text-align: center; cursor: pointer;
-            transition: all 0.4s ease; position: relative; overflow: hidden;
+        .product-card {
+            background: var(--glass-bg); backdrop-filter: blur(30px); border-radius: var(--radius);
+            padding: 2.5rem 2rem; text-align: center; border: 1px solid var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); position: relative;
+            overflow: hidden;
         }
-        .product-holo::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-blue));
-            transform: scaleX(0); transition: transform 0.4s ease;
+        .product-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg); transition: all 0.6s;
         }
-        .product-holo:hover::before { transform: scaleX(1); }
-        .product-holo:hover {
-            transform: translateY(-15px) scale(1.02); border-color: var(--neon-cyan);
-            box-shadow: 0 30px 60px rgba(0,255,255,0.3), inset 0 0 30px rgba(0,255,255,0.1);
+        .product-card:hover::before { transform: rotate(45deg) translateX(100%) translateY(100%); }
+        .product-card:hover {
+            transform: translateY(-20px) rotateX(5deg) rotateY(5deg); border-color: var(--neon-glow);
+            box-shadow: var(--shadow-neon), 0 30px 60px rgba(0,0,0,0.3);
         }
-        .product-img {
-            width: 100%; height: 280px; object-fit: cover; border-radius: 16px; margin-bottom: 20px;
-            filter: drop-shadow(0 10px 30px rgba(0,255,255,0.3)); transition: all 0.4s ease;
+        .product-image {
+            width: 100%; height: 250px; object-fit: cover; border-radius: 20px; margin-bottom: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2); transition: all 0.5s ease;
         }
-        .product-holo:hover .product-img { filter: drop-shadow(0 20px 40px rgba(0,255,255,0.5)); }
-        .product-name {
-            font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
+        .product-card:hover .product-image { transform: scale(1.1) rotate(3deg); }
+        .product-title {
+            font-size: 1.6rem; font-weight: 700; margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--gold), var(--neon-glow));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .buy-btn {
-            width: 100%; padding: 15px; background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
-            border: none; border-radius: 12px; color: #000; font-weight: 700; font-size: 1.1rem;
-            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,255,255,0.4);
+        .add-to-cart {
+            width: 100%; padding: 1.2rem; font-size: 1.1rem; font-weight: 700; border: none;
+            border-radius: 16px; cursor: pointer; background: linear-gradient(45deg, var(--gold), #ffed4a);
+            color: #1a1a2e; box-shadow: 0 10px 30px rgba(255,215,0,0.4); transition: all 0.4s ease;
+            position: relative; overflow: hidden;
         }
-        .buy-btn:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(0,255,255,0.6); }
+        .add-to-cart:hover {
+            transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(255,215,0,0.6);
+        }
 
         /* Modal */
-        #modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000;
-            display: none; justify-content: center; align-items: center;
+        #promoModal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px); z-index: 9999; justify-content: center; align-items: center;
         }
-        #modal.active { display: flex; animation: modalSlide 0.5s ease; }
-        .modal-box {
-            background: var(--glass-dark); border: 2px solid var(--neon-cyan); border-radius: 20px;
-            padding: 40px; text-align: center; max-width: 450px; width: 90%;
-            box-shadow: 0 0 50px var(--neon-cyan);
+        #promoModal.show { display: flex; animation: modalAppear 0.5s ease; }
+        .modal-content {
+            background: var(--glass-bg); backdrop-filter: blur(40px); border-radius: var(--radius);
+            border: 1px solid var(--glass-border); padding: 3.5rem 3rem; text-align: center;
+            max-width: 500px; width: 90%; box-shadow: var(--shadow-neon);
         }
-        .modal-icon { font-size: 4rem; color: var(--neon-pink); margin-bottom: 20px; }
-        .modal-title { font-size: 2rem; margin-bottom: 15px; color: var(--neon-cyan); }
+        .modal-icon { font-size: 4rem; margin-bottom: 1.5rem; color: var(--gold); }
+        .modal-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products { grid-template-columns: 1fr; gap: 2rem; }
+            header { flex-direction: column; gap: 2rem; text-align: center; }
+            .hero-content { padding: 2.5rem 2rem; }
+        }
 
         /* Animations */
-        @keyframes glitch {
-            0%, 100% { clip: rect(42px, 9999px, 56px, 0); transform: skew(0.3deg); }
-            5% { clip: rect(17px, 9999px, 35px, 0); transform: skew(0.6deg); }
-            10% { clip:
+        @keyframes float3d {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-25px) rotateX(10deg); }
+        }
+        @keyframes pulseGlow { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+        @keyframes bgShift { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes bounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(50px); } }
+        @keyframes modalAppear { from { opacity: 0; transform: scale(0.8); } }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+
+    <!-- Splash -->
+    <div id="splash">
+        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600" alt="ShopSphere">
+    </div>
+
+    <!-- Hero -->
+    <div id="start-screen">
+        <div class="hero-content">
+            <h1 class="hero-title">Shop<span style="color: var(--gold);">Sphere</span></h1>
+            <p class="hero-subtitle">Discover Luxury, Live Premium</p>
+            <button class="cta-hero" onclick="startShopping()">
+                <i class="fas fa-rocket"></i> Enter Store
+            </button>
+        </div>
+    </div>
+
+    <!-- Home -->
+    <div id="home-page" class="page">
+        <div class="container">
+            <header>
+                <h2 class="page-title">Featured Collection</h2>
+                <div class="cart-badge" onclick="showCart()">
+                    <i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span>
+                </div>
+            </header>
+            <div class="products">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500" class="product-image" alt="Bag">
+                    <h3 class="product-title">Luxury Bag</h3>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" class="product-image" alt="Shoes">
+                    <h3 class="product-title">Air Shoes</h3>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" class="product-image" alt="Watch">
+                    <h3 class="product-title">Smart Watch</h3>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:4rem;">
+                <button class="cta-hero" onclick="openPage('shop-page')" style="max-width:400px;">View All Products</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Page -->
+    <div id="shop-page" class="page">
+        <div class="container">
+            <header>
+                <h2 class="page-title">Complete Collection</h2>
+                <button class="cta-hero" onclick="openPage('home-page')" style="padding:1rem 2rem;">← Back Home</button>
+            </header>
+            <div class="products">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" class="product-image" alt="Headphones">
+                    <h3 class="product-title">Headphones Pro</h3>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500" class="product-image" alt="Earbuds">
+                    <h3 class="product-title">Wireless Buds</h3>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1608145402667-6c2a4947e6a6?w=500" class="product-image" alt="Case">
+                    <h3 class="product-title">Phone Case</h3>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="promoModal">
+        <div class="modal-content">
+            <div class="modal-icon">🎁</div>
+            <h3 class="modal-title">LAUNCH SPECIAL</h3>
+            <p style="font-size:1.2rem; margin-bottom:2rem;">15% OFF First Order<br><code style="background:var(--glass-bg);padding:0.5rem 1rem;border-radius:8px;">LAUNCH15</code></p>
+            <button class="cta-hero" onclick="closeModal()" style="width:100%;">Claim Now!</button>
+        </div>
+    </div>
+
+    <script>
+        let cartCount = 0;
+        const buttons = document.querySelectorAll('.add-to-cart');
+
+        // Splash
+        setTimeout(() => {
+            document.getElementById('splash').style.transform = 'scale(0.8)';
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('start-screen').style.opacity = '1';
+            }, 600);
+        }, 3000);
+
+        // Cart
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                cartCount++;
+                document.getElementById('cart-count').textContent = cartCount;
+                btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+                btn.style.background = 'linear-gradient(45deg, #10b981, #059669)';
+                setTimeout(() => {
+                    btn.innerHTML = 'Add to Cart';
+                    btn.style.background = '';
+                }, 800);
+            });
+        });
+
+        // Navigation
+        function openPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+        }
+
+        function startShopping() {
+            document.getElementById('start-screen').style.transform = 'scale(
