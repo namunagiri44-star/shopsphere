@@ -301,4 +301,8 @@ a {
     .carousel-caption p {
         font-size: 0.9rem;
     }
+#splash {
+    transition: opacity 0.8s ease;
 }
+}
+
