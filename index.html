@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSphere - Premium E-Commerce Store</title>
+    <title>ShopHub - Rewards E-Commerce Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -71,171 +71,6 @@
                 opacity: 0;
                 visibility: hidden;
             }
-        }
-
-        /* Promo Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            z-index: 10000;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .modal-box {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 500px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 30px;
-            overflow: hidden;
-            animation: modalSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.7);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 35px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 10;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-        }
-
-        .close-btn:hover {
-            background: #ff4757;
-            transform: rotate(90deg);
-        }
-
-        .modal-content-red {
-            text-align: center;
-            padding: 40px 30px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-content-red::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,215,0,0.1) 1%, transparent 1%);
-            background-size: 30px 30px;
-            animation: moveBackground 20s linear infinite;
-        }
-
-        .modal-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 10px;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .modal-title span {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 3rem;
-        }
-
-        .modal-subtitle {
-            color: #FFD700;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            animation: fadeInUp 0.6s ease 0.1s backwards;
-        }
-
-        .discount-circle {
-            width: 180px;
-            height: 180px;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin: 20px auto;
-            animation: bounceIn 0.8s ease;
-            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
-        }
-
-        .discount-circle span:first-child {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .percent {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #1a1a2e;
-            line-height: 1;
-        }
-
-        .discount-circle span:last-child {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .contact-footer {
-            margin-top: 30px;
-            animation: fadeInUp 0.6s ease 0.2s backwards;
-        }
-
-        .contact-footer p {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .claim-btn {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #1a1a2e;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .claim-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
         }
 
         /* Navigation */
@@ -396,17 +231,6 @@
             animation: fadeInUp 0.8s ease 0.2s backwards;
         }
 
-        .sale-badge {
-            display: inline-block;
-            background: #ff4757;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            animation: pulse 1.5s ease infinite;
-        }
-
         /* Rewards Modal */
         .modal {
             display: none;
@@ -449,13 +273,22 @@
         }
 
         /* Celebration Effect */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
             background: #ff0;
             animation: fall 3s linear forwards;
-            pointer-events: none;
         }
 
         @keyframes fall {
@@ -465,7 +298,7 @@
             }
         }
 
-        /* Product Cards */
+        /* Product Cards with Rewards */
         .product-card {
             background: white;
             border-radius: 20px;
@@ -478,19 +311,6 @@
         .product-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .sale-tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff4757;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: white;
-            z-index: 10;
         }
 
         .reward-badge {
@@ -506,13 +326,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 0.9rem;
-            margin-right: 10px;
+            animation: bounceIn 0.5s ease;
         }
 
         /* Notification */
@@ -580,6 +394,17 @@
             from {
                 opacity: 0;
                 transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
             }
             to {
                 opacity: 1;
@@ -698,19 +523,6 @@
                 margin: 5px;
                 font-size: 0.9rem;
             }
-            .modal-title {
-                font-size: 1.8rem;
-            }
-            .modal-title span {
-                font-size: 2rem;
-            }
-            .discount-circle {
-                width: 140px;
-                height: 140px;
-            }
-            .percent {
-                font-size: 2.5rem;
-            }
         }
     </style>
 </head>
@@ -719,35 +531,13 @@
     <div class="loader">
         <div class="loader-content">
             <div class="loader-circle"></div>
-            <div class="loader-text">✨ TECHSPHERE ✨</div>
-        </div>
-    </div>
-
-    <!-- Promo Modal -->
-    <div id="promoModal" class="modal-overlay">
-        <div class="modal-box shop-modal">
-            <span class="close-btn" onclick="closePromoModal()">&times;</span>
-            <div class="modal-content-red">
-                <h2 class="modal-title">EXCLUSIVE<br><span>SALE 2026</span></h2>
-                <p class="modal-subtitle">Electronics & Premium Gear</p>
-                
-                <div class="discount-circle">
-                    <span>UP TO</span>
-                    <div class="percent">50%</div>
-                    <span>OFF</span>
-                </div>
-                
-                <div class="contact-footer">
-                    <p>www.techsphere.com</p>
-                    <button class="claim-btn" onclick="claimOffer()">SHOP NOW</button>
-                </div>
-            </div>
+            <div class="loader-text">✨ SHOPHUB REWARDS ✨</div>
         </div>
     </div>
 
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo">⚡ TechSphere</div>
+        <div class="logo">🛍️ ShopHub Rewards</div>
         <div class="rewards-badge" onclick="showRewardsModal()">
             <span class="coin-icon">🪙</span>
             <span id="reward-points">0</span>
@@ -794,9 +584,8 @@
     <!-- Home Page -->
     <div id="home-page" class="page active">
         <div class="hero">
-            <div class="sale-badge">🔥 LIMITED TIME OFFER 🔥</div>
-            <h1>Welcome to TechSphere! 🚀</h1>
-            <p>Earn points on every purchase • Redeem amazing rewards • Up to 50% OFF</p>
+            <h1>Welcome to ShopHub Rewards! 🎉</h1>
+            <p>Earn points on every purchase • Redeem amazing rewards</p>
             <a href="#" onclick="showPage('products')" class="btn-primary">Start Shopping →</a>
         </div>
         
@@ -829,49 +618,27 @@
     </div>
 
     <footer>
-        <p>© 2024 TechSphere | Earn points on every purchase! 🪙 | Exclusive Deals Await!</p>
+        <p>© 2024 ShopHub Rewards | Earn points on every purchase! 🪙</p>
     </footer>
 
     <script>
-        // Product Data with Sale Prices
+        // Product Data
         const products = [
-            { id: 1, name: "Premium Wireless Headphones", price: 99.99, salePrice: 49.99, category: "electronics", icon: "🎧", featured: true, points: 50, onSale: true },
-            { id: 2, name: "Smart Watch Pro", price: 199.99, salePrice: 99.99, category: "electronics", icon: "⌚", featured: true, points: 100, onSale: true },
-            { id: 3, name: "Classic Denim Jacket", price: 79.99, salePrice: 39.99, category: "clothing", icon: "👕", featured: true, points: 40, onSale: true },
-            { id: 4, name: "JavaScript Guide", price: 39.99, salePrice: 19.99, category: "books", icon: "📚", featured: true, points: 20, onSale: true },
-            { id: 5, name: "Wireless Gaming Mouse", price: 49.99, salePrice: 29.99, category: "electronics", icon: "🖱️", featured: false, points: 25, onSale: true },
-            { id: 6, name: "Running Shoes", price: 89.99, salePrice: 59.99, category: "clothing", icon: "👟", featured: false, points: 45, onSale: false },
-            { id: 7, name: "4K Action Camera", price: 299.99, salePrice: 199.99, category: "electronics", icon: "📷", featured: false, points: 150, onSale: true },
-            { id: 8, name: "Cotton T-Shirt", price: 24.99, salePrice: 14.99, category: "clothing", icon: "👕", featured: false, points: 12, onSale: true },
-            { id: 9, name: "Python Crash Course", price: 34.99, salePrice: 24.99, category: "books", icon: "📖", featured: false, points: 17, onSale: false },
-            { id: 10, name: "Bluetooth Speaker", price: 79.99, salePrice: 49.99, category: "electronics", icon: "🔊", featured: false, points: 40, onSale: true }
+            { id: 1, name: "Premium Wireless Headphones", price: 99.99, category: "electronics", icon: "🎧", featured: true, points: 50 },
+            { id: 2, name: "Smart Watch Pro", price: 199.99, category: "electronics", icon: "⌚", featured: true, points: 100 },
+            { id: 3, name: "Classic Denim Jacket", price: 79.99, category: "clothing", icon: "👕", featured: true, points: 40 },
+            { id: 4, name: "JavaScript: The Definitive Guide", price: 39.99, category: "books", icon: "📚", featured: true, points: 20 },
+            { id: 5, name: "Wireless Gaming Mouse", price: 49.99, category: "electronics", icon: "🖱️", featured: false, points: 25 },
+            { id: 6, name: "Running Shoes", price: 89.99, category: "clothing", icon: "👟", featured: false, points: 45 },
+            { id: 7, name: "4K Action Camera", price: 299.99, category: "electronics", icon: "📷", featured: false, points: 150 },
+            { id: 8, name: "Cotton T-Shirt", price: 24.99, category: "clothing", icon: "👕", featured: false, points: 12 },
+            { id: 9, name: "Python Crash Course", price: 34.99, category: "books", icon: "📖", featured: false, points: 17 },
+            { id: 10, name: "Bluetooth Speaker", price: 79.99, category: "electronics", icon: "🔊", featured: false, points: 40 }
         ];
 
         // Reward System
         let rewardPoints = parseInt(localStorage.getItem('rewardPoints')) || 0;
         let activeCoupon = localStorage.getItem('activeCoupon') || null;
-        let promoShown = false;
-
-        // Show promo modal on load
-        function showPromoModal() {
-            if (!promoShown) {
-                setTimeout(() => {
-                    document.getElementById('promoModal').style.display = 'block';
-                    promoShown = true;
-                }, 1500);
-            }
-        }
-
-        function closePromoModal() {
-            document.getElementById('promoModal').style.display = 'none';
-        }
-
-        function claimOffer() {
-            closePromoModal();
-            showPage('products');
-            showRewardNotification('🎉 50% OFF on selected items! Start shopping now!');
-            createConfetti();
-        }
 
         function updateRewardPoints() {
             const pointsElement = document.getElementById('reward-points');
@@ -964,12 +731,11 @@
             if (!product) return;
             
             const existingItem = cart.find(item => item.id === productId);
-            const currentPrice = product.onSale ? product.salePrice : product.price;
             
             if (existingItem) {
                 existingItem.quantity++;
             } else {
-                cart.push({ ...product, price: currentPrice, quantity: 1 });
+                cart.push({ ...product, quantity: 1 });
             }
             
             saveCart();
@@ -999,13 +765,8 @@
             const container = document.getElementById(containerId);
             if (!container) return;
             
-            container.innerHTML = productList.map(product => {
-                const currentPrice = product.onSale ? product.salePrice : product.price;
-                const originalPrice = product.onSale ? product.price : null;
-                
-                return `
+            container.innerHTML = productList.map(product => `
                 <div class="product-card">
-                    ${product.onSale ? '<div class="sale-tag">🔥 SALE</div>' : ''}
                     <div class="reward-badge">
                         <span>🪙</span> +${product.points}
                     </div>
@@ -1014,18 +775,182 @@
                     </div>
                     <div class="product-info" style="padding: 20px;">
                         <h3 class="product-title" style="font-size: 1.2rem; font-weight: 600;">${product.name}</h3>
-                        <div class="product-price" style="font-size: 1.5rem; color: #ff4757; font-weight: 700;">
-                            ${originalPrice ? `<span class="original-price">$${originalPrice.toFixed(2)}</span>` : ''}
-                            $${currentPrice.toFixed(2)}
-                        </div>
+                        <div class="product-price" style="font-size: 1.5rem; color: #ff4757; font-weight: 700;">$${product.price.toFixed(2)}</div>
                         <div class="product-category" style="color: #888; margin-bottom: 15px;">${product.category}</div>
                         <button class="add-to-cart" onclick="addToCart(${product.id})">
                             Add to Cart 🛒 +${product.points}🪙
                         </button>
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
         }
 
         function displayFeatured() {
-            const featured = products.filter(p => p.featured
+            const featured = products.filter(p => p.featured);
+            displayProducts('featured-products', featured);
+        }
+
+        let currentFilter = 'all';
+        function filterProducts(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase() === category || (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+            displayProducts('all-products', filtered);
+        }
+
+        function displayCart() {
+            const cartContent = document.getElementById('cart-content');
+            if (!cartContent) return;
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div style="text-align: center; padding: 80px; background: white; border-radius: 20px;">
+                        <div style="font-size: 5rem;">🛒</div>
+                        <h3 style="margin: 20px 0;">Your cart is empty</h3>
+                        <a href="#" onclick="showPage('products')" class="btn-primary">Start Shopping & Earn Points! 🪙</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let discount = 0;
+            
+            if (activeCoupon === '10% OFF') {
+                discount = subtotal * 0.1;
+            }
+            
+            const tax = (subtotal - discount) * 0.1;
+            let shipping = subtotal > 100 ? 0 : 10;
+            
+            if (activeCoupon === 'FREE SHIPPING') {
+                shipping = 0;
+            }
+            
+            const total = subtotal - discount + tax + shipping;
+            
+            cartContent.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 350px; gap: 30px;">
+                    <div style="background: white; border-radius: 20px; padding: 20px;">
+                        ${cart.map(item => `
+                            <div style="display: grid; grid-template-columns: auto 1fr auto auto; gap: 20px; align-items: center; padding: 20px; border-bottom: 1px solid #eee;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">${item.icon}</div>
+                                <div>
+                                    <h3>${item.name}</h3>
+                                    <div style="color: #ff4757; font-weight: 700;">$${item.price.toFixed(2)}</div>
+                                    <small style="color: #FFD700;">+${item.points} points each</small>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)" style="background: #f0f0f0; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer;">-</button>
+                                    <span style="min-width: 30px; text-align: center; font-weight: 600;">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)" style="background: #f0f0f0; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer;">+</button>
+                                </div>
+                                <button class="remove-btn" onclick="removeFromCart(${item.id})" style="background: #ff4757; color: white; border: none; padding: 8px 18px; border-radius: 10px; cursor: pointer;">Remove</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="background: white; border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 100px;">
+                        <h3>Order Summary</h3>
+                        ${activeCoupon ? `<div style="background: #FFD700; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">
+                            🎉 ${activeCoupon} Applied!
+                        </div>` : ''}
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                            <span>Subtotal:</span>
+                            <span>$${subtotal.toFixed(2)}</span>
+                        </div>
+                        ${discount > 0 ? `
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0; color: green;">
+                            <span>Discount:</span>
+                            <span>-$${discount.toFixed(2)}</span>
+                        </div>
+                        ` : ''}
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                            <span>Tax (10%):</span>
+                            <span>$${tax.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                            <span>Shipping:</span>
+                            <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px solid #eee; font-size: 1.2rem; font-weight: 700;">
+                            <span>Total:</span>
+                            <span style="color: #ff4757;">$${total.toFixed(2)}</span>
+                        </div>
+                        <div style="margin-top: 20px; background: linear-gradient(135deg, #FFD700, #FFA500); padding: 15px; border-radius: 10px; text-align: center;">
+                            <div>🪙 Points to earn: ${cart.reduce((sum, item) => sum + (item.points * item.quantity), 0)}</div>
+                        </div>
+                        <button class="btn-primary" onclick="checkout()" style="width: 100%; margin-top: 20px;">
+                            Checkout & Earn Points! 🪙
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                const newQuantity = item.quantity + change;
+                if (newQuantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    item.quantity = newQuantity;
+                    saveCart();
+                    displayCart();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            displayCart();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            const totalPoints = cart.reduce((sum, item) => sum + (item.points * item.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            addRewardPoints(totalPoints);
+            createConfetti();
+            
+            alert(`🎉 Thank you for your purchase!\n\nTotal: $${subtotal.toFixed(2)}\nPoints Earned: +${totalPoints} 🪙\n\nTotal Points: ${rewardPoints}`);
+            
+            cart = [];
+            activeCoupon = null;
+            localStorage.removeItem('activeCoupon');
+            saveCart();
+            displayCart();
+            showPage('home');
+        }
+
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            if (pageName === 'home') {
+                const homePage = document.getElementById('home-page');
+                if (homePage) {
+                    homePage.classList.add('active');
+                    displayFeatured();
+                }
+            } else if (pageName === 'products') {
+                const productsPage = document.getElementById('products-page');
+                if (productsPage) {
+                    productsPage.classList.add('active');
+                    filterProducts(currentFilter);
+                }
+            } else if (pageName === 'cart') {
+               
