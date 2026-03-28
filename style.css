@@ -1,93 +1,436 @@
-/* Base styles for navbar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* ========================= */
+/* NAVBAR & NAVIGATION */
+/* ========================= */
 .navbar {
-    background-color: #333;
+    background-color: #1a1a1a;
     color: #fff;
-    padding: 10px;
+    padding: 15px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    padding: 15px;
-}
-
-.navbar a:hover {
-    background-color: #575757;
-}
-
-/* Base styles for carousel */
-.carousel {
-    position: relative;
-    overflow: hidden;
-}
-
-.carousel img {
-    width: 100%;
-}
-
-/* Base styles for cards */
-.card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 15px;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Base styles for grid */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-/* Base styles for forms */
-form {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0;
-}
-
-input, textarea {
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Base styles for buttons */
-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+.logo {
+    font-size: 1.8rem;
+    font-weight: 600;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.logo span {
+    color: #ff6b6b;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.nav-links a:hover {
+    background-color: #575757;
+}
+
+.cart-status {
+    background-color: #ff6b6b;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* ========================= */
+/* PAGE SWITCHING */
+/* ========================= */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ========================= */
+/* CAROUSEL */
+/* ========================= */
+.carousel-container {
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.carousel-slide {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+}
+
+.carousel-item {
+    min-width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-caption {
+    text-align: center;
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    padding: 40px;
+}
+
+.carousel-caption h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255,107,107,0.8);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    padding: 15px 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carousel-btn.prev {
+    left: 20px;
+}
+
+.carousel-btn.next {
+    right: 20px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(255,107,107,1);
+}
+
+/* ========================= */
+/* SECTION TITLES */
+/* ========================= */
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 40px 0 30px 0;
+    color: #1a1a1a;
+}
+
+/* ========================= */
+/* CATEGORIES GRID */
+/* ========================= */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 5%;
+    margin-bottom: 40px;
+}
+
+.category-card {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+}
+
+.category-card span {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* ========================= */
+/* GRID & CARDS */
+/* ========================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 5%;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card h3 {
+    padding: 15px 15px 5px 15px;
+    font-size: 1.2rem;
+}
+
+.card .price {
+    display: block;
+    padding: 5px 15px;
+    font-size: 1.1rem;
+    color: #ff6b6b;
+    font-weight: 600;
+}
+
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+.btn-primary,
+.submit-btn {
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.btn-primary:hover,
+.submit-btn:hover {
+    background-color: #e55555;
+}
+
+.card .submit-btn {
+    margin: 10px 15px 15px 15px;
+    width: auto;
+}
+
+/* ========================= */
+/* FORMS & INPUTS */
+/* ========================= */
+.container-box {
+    width: 50%;
+    margin: 40px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.container-box h2 {
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border: 2px solid #ff6b6b;
+}
+
+/* ========================= */
+/* TABLET VIEW (max-width: 992px) */
+/* ========================= */
+@media (max-width: 992px) {
     .navbar {
-        flex-direction: column;
+        padding: 15px 3%;
     }
+
+    .carousel-caption h1 {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
     .grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 5%;
+    }
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .container-box {
+        width: 80%;
     }
 }
 
-@media (max-width: 480px) {
-    .navbar a {
+/* ========================= */
+/* MOBILE VIEW (max-width: 600px) */
+/* ========================= */
+@media (max-width: 600px) {
+    /* Navbar */
+    .navbar {
+        flex-wrap: wrap;
         padding: 10px;
     }
-    .card {
-        margin: 10px;
-        padding: 15px;
+
+    .logo {
+        font-size: 1.4rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .menu-toggle {
+        display: block;
+        flex: 1;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #333;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 12px;
+        border-bottom: 1px solid #444;
+    }
+
+    .cart-status {
+        margin-top: 8px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        flex: 1;
+    }
+
+    /* Carousel */
+    .carousel-container {
+        height: 40vh;
+        margin-bottom: 20px;
+    }
+
+    .carousel-caption h1 {
+        font-size: 1.5rem;
+    }
+
+    .carousel-caption p {
+        font-size: 0.9rem;
+    }
+
+    .carousel-caption {
+        padding: 20px;
+    }
+
+    /* Section */
+    .section-title {
+        font-size: 1.5rem;
+        margin: 20px 0;
+    }
+
+    /* Grid Layout */
+    .grid {
+        grid-template-columns: 1fr;
+        padding: 0 5%;
+        gap: 15px;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+        padding: 0 5%;
+    }
+
+    .category-card {
+        height: 180px;
+    }
+
+    /* Cards */
+    .card img {
+        height: 180px;
+    }
+
+    /* Forms */
+    .container-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    input, textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .submit-btn {
+        padding: 10px;
+        font-size: 14px;
     }
 }
