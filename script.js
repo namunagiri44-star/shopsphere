@@ -14,6 +14,14 @@ window.addEventListener('load', () => {
         }, 800);
     }, 2000);
 });
+function startShopping() {
+    const startScreen = document.getElementById('start-screen');
+    startScreen.style.opacity = '0';
+    setTimeout(() => {
+        startScreen.style.display = 'none';
+        document.getElementById('home-page').classList.add('active'); // show homepage
+    }, 800); // match fade out duration
+}
 
 // ----- NAVIGATION -----
 function openPage(pageId){
