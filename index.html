@@ -3,119 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopSphere | Premium Store</title>
+    <title>TechSphere | Industrial Electronics</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div id="splash">
-    <h1 class="splash-logo">Shop<span>Sphere</span></h1>
+    <h1 class="splash-logo">Tech<span>Sphere</span></h1>
 </div>
 
 <div id="promoModal" class="modal-overlay" style="display: none;">
     <div class="modal-box">
-        <span class="close-btn">&times;</span>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
         <div class="modal-grid">
             <div class="modal-image">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Special Offer">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500" alt="Special Offer">
             </div>
             <div class="modal-text">
-                <h2>FLASH SALE!</h2>
-                <p>Get an extra <strong>20% OFF</strong> on all smart technology today.</p>
-                <div class="promo-code">USE CODE: <span>SPHERE20</span></div>
-                <button class="shop-now-btn" onclick="closeModalAndShop()">Claim Offer</button>
+                <h2>B2B SPECIAL</h2>
+                <p>Get **15% OFF** on your first industrial machinery order.</p>
+                <div class="promo-code">CODE: <span>TECH15</span></div>
+                <button class="shop-now-btn" onclick="closeModal()">Claim Offer</button>
             </div>
         </div>
     </div>
 </div>
 
 <nav class="navbar">
-    <div class="logo" onclick="openPage('home-page')">Shop<span>Sphere</span></div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div class="nav-links" id="navLinks">
-        <a onclick="openPage('home-page')">Home</a>
-        <a onclick="openPage('shop-page')">Shop</a>
-        <a onclick="openPage('account-page')">Account</a>
-        <a onclick="openPage('contact-page')">Contact</a>
+    <div class="nav-container">
+        <div class="logo" onclick="openPage('home-page')">Tech<span>Sphere</span></div>
+        <div class="nav-links" id="navLinks">
+            <a onclick="openPage('home-page')">Home</a>
+            <a onclick="openPage('shop-page')">Inventory</a>
+            <a onclick="openPage('contact-page')">Support</a>
+        </div>
+        <div class="cart-status">Quote Cart: <span id="cart-count">0</span></div>
     </div>
-    <div class="cart-status">Cart: <span id="cart-count">0</span></div>
 </nav>
 
 <div id="start-screen">
     <div class="start-content">
-        <h1>Start Your Shopping</h1>
-        <button onclick="startShopping()">Enter ShopSphere</button>
+        <h1>Advanced Machinery Portal</h1>
+        <button class="enter-btn" onclick="startShopping()">Enter TechSphere</button>
     </div>
 </div>
 
 <div id="home-page" class="page" style="display: none;">
-    <div class="carousel-container">
-        <div class="carousel-slide" id="carouselSlide">
-            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600');">
-                <div class="carousel-caption">
-                    <h1>Shop Now</h1>
-                    <p>Shop the latest in premium smart technology.</p>
-                    <button class="btn-primary" onclick="openPage('shop-page')">Shop Tech</button>
-                </div>
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hot-badge">Industrial Grade</span>
+            <h1>Precision Electronics</h1>
+            <h2 class="red-text">& Advanced Machinery</h2>
+            <p>Reliable hardware for large-scale manufacturing and data centers.</p>
+            <button class="shop-now-hero" onclick="openPage('shop-page')">View Catalog</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800" alt="Tech">
+        </div>
+    </section>
+
+    <h2 class="section-title">Industrial Inventory</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="card-img-container">
+                <span class="badge sale">New</span>
+                <img src="https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=500" alt="Machine">
             </div>
-            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600');">
-                <div class="carousel-caption">
-                    <h1>Style Guide</h1>
-                    <p>Elevate your style with newly arrived fashion.</p>
-                    <button class="btn-primary" onclick="openPage('shop-page')">View Fashion</button>
+            <div class="card-info">
+                <span class="category-label">Machinery</span>
+                <h3>High-Speed CNC Router</h3>
+                <div class="rating">⭐⭐⭐⭐⭐ <span>(12)</span></div>
+                <div class="price-box">
+                    <span class="current-price">$3,200.00</span>
                 </div>
+                <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
             </div>
         </div>
-        <button class="carousel-btn prev" onclick="moveSlide(-1)">❮</button>
-        <button class="carousel-btn next" onclick="moveSlide(1)">❯</button>
-    </div>
-
-    <h2 class="section-title">Shop by Category</h2>
-    <div class="categories-grid">
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400');" onclick="openPage('shop-page')">
-            <span>Electronics</span>
+        <div class="product-card">
+            <div class="card-img-container">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc48?w=500" alt="Server">
+            </div>
+            <div class="card-info">
+                <span class="category-label">Electronics</span>
+                <h3>Network Server Rack v2</h3>
+                <div class="rating">⭐⭐⭐⭐⭐ <span>(8)</span></div>
+                <div class="price-box">
+                    <span class="current-price">$1,450.00</span>
+                </div>
+                <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+            </div>
         </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400');" onclick="openPage('shop-page')">
-            <span>Footwear</span>
-        </div>
-    </div>
-</div>
-
-<div id="shop-page" class="page" style="display: none;">
-    <h2 class="section-title">All Products</h2>
-    <div class="grid">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500">
-            <h3>Premium Headphones</h3>
-            <span class="price">$50.00</span>
-            <button class="submit-btn" onclick="addCart()">Add to Cart</button>
-        </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500">
-            <h3>Smart Watch v2</h3>
-            <span class="price">$120.00</span>
-            <button class="submit-btn" onclick="addCart()">Add to Cart</button>
-        </div>
-    </div>
-</div>
-
-<div id="account-page" class="page" style="display: none;">
-    <div class="container-box">
-        <h2>My Account</h2>
-        <input type="text" placeholder="Username">
-        <input type="password" placeholder="Password">
-        <button class="submit-btn">Login</button>
     </div>
 </div>
 
 <div id="contact-page" class="page" style="display: none;">
     <div class="container-box">
-        <h2>Contact Us</h2>
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <textarea placeholder="Message" rows="5"></textarea>
-        <button class="submit-btn" onclick="alert('Message Sent!')">Send</button>
+        <h2>Industrial Support</h2>
+        <input type="text" placeholder="Company Name">
+        <input type="email" placeholder="Business Email">
+        <textarea placeholder="Tell us about your machinery requirements" rows="5"></textarea>
+        <button class="shop-now-btn" onclick="alert('Inquiry Sent!')">Send Inquiry</button>
     </div>
 </div>
 
