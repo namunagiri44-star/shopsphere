@@ -37,11 +37,14 @@ function addCart() {
 // ======= SPLASH SCREEN =======
 window.addEventListener('load', () => {
     const splash = document.getElementById('splash');
+    const homePage = document.getElementById('home-page');
+
     setTimeout(() => {
         splash.style.opacity = 0;
         splash.style.pointerEvents = 'none';
-        document.getElementById('home-page').classList.add('active');
-    }, 2000); // 2 seconds splash
+        splash.style.display = 'none';  // <-- hide it completely
+        homePage.classList.add('active'); // show home page
+    }, 2000);
 });
 
 // ======= PAGE NAVIGATION =======
