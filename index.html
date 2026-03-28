@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopSphere | Premium Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+    <h1 class="splash-logo">Shop<span>Sphere</span></h1>
+</div>
 
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo" onclick="openPage('home-page')">Shop<span>Sphere</span></div>
-
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
     <div class="nav-links" id="navLinks">
         <a onclick="openPage('home-page')">Home</a>
         <a onclick="openPage('shop-page')">Shop</a>
         <a onclick="openPage('account-page')">Account</a>
         <a onclick="openPage('contact-page')">Contact</a>
     </div>
-
     <div class="cart-status">Cart: <span id="cart-count">0</span></div>
 </nav>
 
@@ -29,15 +31,13 @@
 <div id="home-page" class="page active">
     <div class="carousel-container">
         <div class="carousel-slide" id="carouselSlide">
-
             <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1600');">
                 <div class="carousel-caption">
-                    <h1> shop Now</h1>
-                    <p>shop the latest in premium smart technology.</p>
+                    <h1>Shop Now</h1>
+                    <p>Shop the latest in premium smart technology.</p>
                     <button class="btn-primary" onclick="openPage('shop-page')">Shop Tech</button>
                 </div>
             </div>
-
             <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600');">
                 <div class="carousel-caption">
                     <h1>Summer Collection</h1>
@@ -45,9 +45,7 @@
                     <button class="btn-primary" onclick="openPage('shop-page')">View Fashion</button>
                 </div>
             </div>
-
         </div>
-
         <button class="carousel-btn prev" onclick="moveSlide(-1)">❮</button>
         <button class="carousel-btn next" onclick="moveSlide(1)">❯</button>
     </div>
@@ -57,41 +55,29 @@
         <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400');" onclick="openPage('shop-page')">
             <span>Electronics</span>
         </div>
-
         <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400');" onclick="openPage('shop-page')">
             <span>Footwear</span>
         </div>
     </div>
 </div>
-   
-<!-- Splash Screen -->
-<div id="splash">
-    <h1 class="splash-logo">Shop<span>Sphere</span></h1>
-</div>
-
-<!-- NAVBAR -->
-<nav class="navbar">
 
 <!-- SHOP PAGE -->
 <div id="shop-page" class="page">
     <div style="padding: 40px 5%;">
         <h2 class="section-title">All Products</h2>
         <div class="grid">
-
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500">
                 <h3>Premium Headphones</h3>
                 <span class="price">$50.00</span>
                 <button class="submit-btn" onclick="addCart()">Add to Cart</button>
             </div>
-
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500">
                 <h3>Smart Watch v2</h3>
                 <span class="price">$120.00</span>
                 <button class="submit-btn" onclick="addCart()">Add to Cart</button>
             </div>
-
         </div>
     </div>
 </div>
