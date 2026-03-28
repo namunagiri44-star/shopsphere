@@ -514,15 +514,6 @@
             .hero h1 {
                 font-size: 2rem;
             }
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 20px;
-            }
-            .filter-btn {
-                padding: 8px 16px;
-                margin: 5px;
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
@@ -641,17 +632,21 @@
         let activeCoupon = localStorage.getItem('activeCoupon') || null;
 
         function updateRewardPoints() {
-            const pointsElement = document.getElementById('reward-points');
-            const modalPointsElement = document.getElementById('modal-points');
-            if (pointsElement) pointsElement.textContent = rewardPoints;
-            if (modalPointsElement) modalPointsElement.textContent = rewardPoints;
+            document.getElementById('reward-points').textContent = rewardPoints;
+            if (document.getElementById('modal-points')) {
+                document.getElementById('modal-points').textContent = rewardPoints;
+            }
             localStorage.setItem('rewardPoints', rewardPoints);
         }
 
         function addRewardPoints(points) {
             rewardPoints += points;
             updateRewardPoints();
+            
+            // Show reward notification
             showRewardNotification(`+${points} points earned! 🪙`);
+            
+            // Create celebration effect
             createConfetti();
         }
 
@@ -676,16 +671,12 @@
         }
 
         function showRewardsModal() {
-            const modal = document.getElementById('rewards-modal');
-            if (modal) {
-                modal.style.display = 'block';
-                document.getElementById('modal-points').textContent = rewardPoints;
-            }
+            document.getElementById('rewards-modal').style.display = 'block';
+            document.getElementById('modal-points').textContent = rewardPoints;
         }
 
         function closeModal() {
-            const modal = document.getElementById('rewards-modal');
-            if (modal) modal.style.display = 'none';
+            document.getElementById('rewards-modal').style.display = 'none';
         }
 
         function redeemReward(rewardName, cost) {
@@ -717,8 +708,7 @@
 
         function updateCartCount() {
             const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const cartCountElement = document.getElementById('cart-count');
-            if (cartCountElement) cartCountElement.textContent = total;
+            document.getElementById('cart-count').textContent = total;
         }
 
         function saveCart() {
@@ -728,8 +718,6 @@
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            if (!product) return;
-            
             const existingItem = cart.find(item => item.id === productId);
             
             if (existingItem) {
@@ -739,6 +727,8 @@
             }
             
             saveCart();
+            
+            // Add reward points when adding to cart
             addRewardPoints(product.points);
             
             const notification = document.createElement('div');
@@ -806,7 +796,6 @@
 
         function displayCart() {
             const cartContent = document.getElementById('cart-content');
-            if (!cartContent) return;
             
             if (cart.length === 0) {
                 cartContent.innerHTML = `
@@ -941,16 +930,21 @@
             });
             
             if (pageName === 'home') {
-                const homePage = document.getElementById('home-page');
-                if (homePage) {
-                    homePage.classList.add('active');
-                    displayFeatured();
-                }
+                document.getElementById('home-page').classList.add('active');
+                displayFeatured();
             } else if (pageName === 'products') {
-                const productsPage = document.getElementById('products-page');
-                if (productsPage) {
-                    productsPage.classList.add('active');
-                    filterProducts(currentFilter);
-                }
+                document.getElementById('products-page').classList.add('active');
+                filterProducts(currentFilter);
             } else if (pageName === 'cart') {
-               
+                document.getElementById('cart-page').classList.add('active');
+                displayCart();
+            }
+        }
+
+        // Initialize
+        displayFeatured();
+        updateCartCount();
+        updateRewardPoints();
+    </script>
+</body>
+</html>
