@@ -5,129 +5,258 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopSphere | Premium E-commerce</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* =======================
+           COMPLETE MODERN CSS
+        ======================= */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-glass: rgba(255,255,255,0.25);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-primary: #3b82f6;
+            --accent-secondary: #f59e0b;
+            --accent-danger: #ef4444;
+            --border-color: rgba(148,163,184,0.2);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --radius-lg: 20px;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary); color: var(--text-primary);
+            line-height: 1.6; overflow-x: hidden;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Splash */
+        #splash {
+            position: fixed; inset: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex; justify-content: center; align-items: center; z-index: 10000;
+        }
+        #splash img { width: clamp(150px, 25vw, 250px); border-radius: var(--radius-lg); }
+
+        /* Start Screen */
+        #start-screen {
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+        }
+        .hero-content { text-align: center; }
+        .hero-content h1 { 
+            font-size: clamp(3rem, 8vw, 5rem); font-weight: 700; 
+            background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 1rem 0;
+        }
+        .cta-button {
+            padding: 1.2rem 3rem; font-size: 1.25rem; font-weight: 600; border: none;
+            border-radius: var(--radius-lg); cursor: pointer; background: rgba(255,255,255,0.95);
+            box-shadow: var(--shadow-lg); transition: all 0.4s ease; color: var(--text-primary);
+        }
+        .cta-button:hover { transform: translateY(-8px) scale(1.05); }
+
+        /* Pages */
+        .page { display: none; min-height: 100vh; padding: 40px 20px; }
+        .page.active { display: block; animation: slideUp 0.6s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem; }
+        .page-title { 
+            font-size: 2.5rem; font-weight: 700; 
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0;
+        }
+        .cart-badge {
+            background: var(--bg-glass); padding: 1rem 1.5rem; border-radius: var(--radius-lg);
+            font-weight: 600; cursor: pointer; border: 1px solid var(--border-color);
+        }
+        #cart-count {
+            background: var(--accent-danger); color: white; border-radius: 50%; width: 28px; height: 28px;
+            display: inline-flex; align-items: center; justify-content: center; font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* Products */
+        .products {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+        }
+        .product-card {
+            background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1.5rem;
+            text-align: center; transition: all 0.4s ease; border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .product-image {
+            width: 100%; height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;
+        }
+        .product-title { font-size: 1.25rem; font-weight: 600; margin: 0 0 1rem 0; }
+        .add-to-cart-btn {
+            width: 100%; padding: 1rem; font-size: 1rem; font-weight: 600; border: none;
+            border-radius: 12px; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white; cursor: pointer; transition: all 0.3s ease;
+        }
+        .add-to-cart-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+        /* Modal */
+        #promoModal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            z-index: 9999; justify-content: center; align-items: center;
+        }
+        #promoModal.show { display: flex; }
+        .modal-content {
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: var(--radius-lg);
+            padding: 2.5rem; text-align: center; max-width: 400px; width: 90%; box-shadow: var(--shadow-lg);
+        }
+        .modal-title { font-size: 1.75rem; font-weight: 700; margin: 0 0 1rem 0; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- 1. Splash Screen -->
+    <!-- Splash Screen -->
     <div id="splash">
-        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop&crop=center" 
-             alt="ShopSphere - Premium Shopping Experience" 
-             loading="eager">
+        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop" alt="ShopSphere">
     </div>
 
-    <!-- 2. Start Screen (Hero) -->
+    <!-- Start Screen -->
     <div id="start-screen">
         <div class="hero-content">
             <h1>ShopSphere</h1>
-            <p class="hero-subtitle">Discover Premium Products</p>
-            <button class="cta-button" onclick="startShopping()">
-                🚀 Start Shopping
-            </button>
+            <button class="cta-button" onclick="startShopping()">🚀 Start Shopping</button>
         </div>
     </div>
 
-    <!-- 3. Home Page -->
+    <!-- Home Page -->
     <div id="home-page" class="page">
         <div class="container">
             <header>
                 <h2 class="page-title">Welcome to ShopSphere</h2>
-                <div class="cart-badge" onclick="toggleCartView()">
-                    <span>Quote:</span>
-                    <span id="cart-count">0</span>
+                <div class="cart-badge" onclick="showCart()">
+                    Quote: <span id="cart-count">0</span>
                 </div>
             </header>
-
-            <section id="featured-products">
-                <h3 class="section-title">✨ Featured Products</h3>
+            <section>
+                <h3 style="text-align:center; font-size:2rem; margin-bottom:2rem;">✨ Featured</h3>
                 <div class="products">
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center" 
-                             alt="Premium Leather Handbag" class="product-image" loading="lazy">
-                        <h3 class="product-title">Premium Leather Bag</h3>
-                        <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" class="product-image" alt="Bag">
+                        <h3 class="product-title">Leather Bag</h3>
+                        <button class="add-to-cart-btn">Add to Quote</button>
                     </div>
-                    
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop&crop=center" 
-                             alt="Professional Running Shoes" class="product-image" loading="lazy">
-                        <h3 class="product-title">Pro Running Shoes</h3>
-                        <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" class="product-image" alt="Shoes">
+                        <h3 class="product-title">Running Shoes</h3>
+                        <button class="add-to-cart-btn">Add to Quote</button>
                     </div>
-                    
                     <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&crop=center" 
-                             alt="Smart Fitness Watch" class="product-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" class="product-image" alt="Watch">
                         <h3 class="product-title">Smart Watch</h3>
-                        <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                        <button class="add-to-cart-btn">Add to Quote</button>
                     </div>
                 </div>
+                <div style="text-align:center; margin-top:3rem;">
+                    <button class="cta-button" onclick="openPage('shop-page')" style="max-width:300px;">🛒 Full Shop</button>
+                </div>
             </section>
-
-            <div style="text-align: center; margin-top: 3rem;">
-                <button class="cta-button" onclick="openPage('shop-page')" style="max-width: 300px;">
-                    🛒 Explore Full Shop
-                </button>
-            </div>
         </div>
     </div>
 
-    <!-- 4. Shop Page -->
+    <!-- Shop Page -->
     <div id="shop-page" class="page">
         <div class="container">
             <header>
                 <h2 class="page-title">Full Collection</h2>
-                <button class="back-btn" onclick="openPage('home-page')">
-                    ← Back to Home
-                </button>
+                <button class="cta-button" onclick="openPage('home-page')" style="padding:0.8rem 1.5rem;">← Back</button>
             </header>
-
-            <section class="products">
+            <div class="products">
                 <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop&crop=center" 
-                         alt="Wireless Noise-Cancelling Headphones" class="product-image" loading="lazy">
-                    <h3 class="product-title">Wireless Headphones</h3>
-                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" class="product-image" alt="Headphones">
+                    <h3 class="product-title">Headphones</h3>
+                    <button class="add-to-cart-btn">Add to Quote</button>
                 </div>
-
                 <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop&crop=center" 
-                         alt="Designer Sunglasses" class="product-image" loading="lazy">
-                    <h3 class="product-title">Designer Sunglasses</h3>
-                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                    <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400" class="product-image" alt="Earbuds">
+                    <h3 class="product-title">Earbuds</h3>
+                    <button class="add-to-cart-btn">Add to Quote</button>
                 </div>
-
                 <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400&h=400&fit=crop&crop=center" 
-                         alt="Wireless Earbuds" class="product-image" loading="lazy">
-                    <h3 class="product-title">Wireless Earbuds</h3>
-                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
-                </div>
-
-                <div class="product-card">
-                    <img src="https://images.unsplash.com/photo-1608145402667-6c2a4947e6a6?w=400&h=400&fit=crop&crop=center" 
-                         alt="Premium Smartphone Case" class="product-image" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1608145402667-6c2a4947e6a6?w=400" class="product-image" alt="Case">
                     <h3 class="product-title">Phone Case</h3>
-                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                    <button class="add-to-cart-btn">Add to Quote</button>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 
-    <!-- 5. Promo Modal -->
+    <!-- Promo Modal -->
     <div id="promoModal">
         <div class="modal-content">
-            <img src="https://images.unsplash.com/photo-1571115628310-6eabf7bf9e21?w=200&h=200&fit=crop&crop=center" 
-                 alt="Special Offer" loading="lazy">
-            <h3 class="modal-title">🎉 Launch Special!</h3>
-            <p>Get <strong>15% OFF</strong> first order<br>
-               Use code: <code>LAUNCH15</code></p>
-            <button class="cta-button" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">
-                Claim Offer 🎁
-            </button>
+            <img src="https://images.unsplash.com/photo-1571115628310-6eabf7bf9e21?w=150" alt="Offer">
+            <h3 class="modal-title">🎉 15% OFF First Order!</h3>
+            <p>Code: <code>LAUNCH15</code></p>
+            <button class="cta-button" onclick="closeModal()" style="width:100%;margin-top:1rem;">Got it! 🎁</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- COMPLETE JAVASCRIPT -->
+    <script>
+        let cartCount = 0;
+
+        // Splash Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splash').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash').style.display = 'none';
+                    document.getElementById('start-screen').style.display = 'flex';
+                }, 500);
+            }, 2500);
+        });
+
+        // Navigation
+        function openPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Start Shopping
+        function startShopping() {
+            document.getElementById('start-screen').style.display = 'none';
+            openPage('home-page');
+            setTimeout(() => document.getElementById('promoModal').classList.add('show'), 1000);
+        }
+
+        // Cart Functions
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                cartCount++;
+                document.getElementById('cart-count').textContent = cartCount;
+                btn.style.background = '#10b981';
+                setTimeout(() => btn.style.background = '', 200);
+            });
+        });
+
+        function showCart() {
+            alert(`📋 You have ${cartCount} items in your quote!`);
+        }
+
+        // Modal
+        function closeModal() {
+            document.getElementById('promoModal').classList.remove('show');
+        }
+
+        // Global functions for onclick
+        window.startShopping = startShopping;
+        window.openPage = openPage;
+        window.closeModal = closeModal;
+        window.showCart = showCart;
+    </script>
 </body>
 </html>
