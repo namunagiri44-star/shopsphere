@@ -34,3 +34,8 @@ function addCart() {
     count++;
     document.getElementById('cart-count').innerText = count;
 }
+window.addEventListener("load", function() {
+    setTimeout(function(){
+        document.getElementById("splash").style.display = "none";
+    }, 3000);
+});
