@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopHub - Modern E-Commerce Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>ShopHub - Rewards E-Commerce Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,8 +14,9 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Loading Animation */
@@ -30,7 +31,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            animation: fadeOut 1s ease 1.5s forwards;
+            animation: fadeOut 1s ease 2s forwards;
         }
 
         .loader-content {
@@ -50,7 +51,7 @@
         .loader-text {
             color: white;
             font-size: 1.2rem;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 2px;
             animation: pulse 1.5s ease infinite;
         }
@@ -61,8 +62,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
         }
 
         @keyframes fadeOut {
@@ -72,9 +73,10 @@
             }
         }
 
-        /* Navigation Animation */
+        /* Navigation */
         .navbar {
-            background: #1a1a2e;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
             color: white;
             padding: 1rem 5%;
             display: flex;
@@ -83,7 +85,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
             animation: slideDown 0.6s ease;
         }
 
@@ -100,12 +102,46 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: 700;
+            font-weight: 800;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInLeft 0.8s ease;
+        }
+
+        .rewards-badge {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: bounceIn 0.8s ease;
+        }
+
+        .rewards-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.3);
+        }
+
+        .coin-icon {
+            font-size: 1.3rem;
+            animation: rotateCoin 3s linear infinite;
+        }
+
+        @keyframes rotateCoin {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        #reward-points {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0,0,0,0.3);
         }
 
         .nav-links {
@@ -120,7 +156,6 @@
             font-weight: 500;
             transition: all 0.3s;
             position: relative;
-            animation: fadeInRight 0.8s ease;
         }
 
         .nav-links a::before {
@@ -138,14 +173,9 @@
             width: 100%;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
         .cart-icon {
             position: relative;
             font-size: 1.3rem;
-            animation: bounceIn 0.8s ease;
         }
 
         #cart-count {
@@ -161,7 +191,7 @@
             animation: pulse 1s ease infinite;
         }
 
-        /* Hero Section Animation */
+        /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -184,31 +214,141 @@
         }
 
         @keyframes moveBackground {
-            from {
-                transform: translate(0, 0);
-            }
-            to {
-                transform: translate(50px, 50px);
-            }
+            from { transform: translate(0, 0); }
+            to { transform: translate(50px, 50px); }
         }
 
         .hero h1 {
             font-size: 3.5rem;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1rem;
             animation: fadeInUp 0.8s ease;
-            position: relative;
-            z-index: 1;
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
             animation: fadeInUp 0.8s ease 0.2s backwards;
-            position: relative;
-            z-index: 1;
         }
 
+        /* Rewards Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: bounceIn 0.5s ease;
+        }
+
+        .reward-item {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reward-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Celebration Effect */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff0;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Product Cards with Rewards */
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .reward-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: bounceIn 0.5s ease;
+        }
+
+        /* Notification */
+        .reward-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            z-index: 10000;
+            animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2s forwards;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Buttons */
         .btn-primary {
             display: inline-block;
             background: white;
@@ -218,172 +358,11 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
             position: relative;
-            z-index: 1;
             overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(102, 126, 234, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .btn-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Products Section Animation */
-        .products-section {
-            padding: 60px 5%;
-            animation: fadeIn 1s ease;
-        }
-
-        .products-section h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: #333;
-            position: relative;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .products-section h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            animation: expandWidth 0.8s ease;
-        }
-
-        @keyframes expandWidth {
-            from {
-                width: 0;
-            }
-            to {
-                width: 60px;
-            }
-        }
-
-        .filters {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.6s ease 0.2s backwards;
-        }
-
-        .filter-btn {
-            background: #e0e0e0;
-            border: none;
-            padding: 10px 28px;
-            margin: 0 8px;
-            border-radius: 50px;
             cursor: pointer;
+            border: none;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .filter-btn:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: fadeInUp 0.6s ease;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-        .product-card:nth-child(4) { animation-delay: 0.4s; }
-        .product-card:nth-child(5) { animation-delay: 0.5s; }
-        .product-card:nth-child(6) { animation-delay: 0.6s; }
-
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .product-image {
-            height: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            transition: transform 0.5s ease;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.1);
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .product-price {
-            font-size: 1.5rem;
-            color: #ff4757;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .product-category {
-            color: #888;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            text-transform: capitalize;
-            font-weight: 500;
         }
 
         .add-to-cart {
@@ -395,183 +374,11 @@
             border-radius: 12px;
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .add-to-cart::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .add-to-cart:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .add-to-cart:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Cart Page Animations */
-        .cart-section {
-            padding: 60px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-            animation: fadeIn 0.8s ease;
-        }
-
-        .cart-section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-align: center;
-            animation: slideInLeft 0.6s ease;
-        }
-
-        .cart-container {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 30px;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .cart-items {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-        }
-
-        .cart-item {
-            display: grid;
-            grid-template-columns: auto 1fr auto auto;
-            gap: 20px;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
-            animation: slideInRight 0.5s ease;
-        }
-
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            transition: transform 0.3s;
-        }
-
-        .cart-item:hover .cart-item-image {
-            transform: rotate(5deg) scale(1.05);
-        }
-
-        .quantity-btn {
-            background: #f0f0f0;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .quantity-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        .remove-btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .remove-btn:hover {
-            background: #ff3838;
-            transform: scale(1.05);
-        }
-
-        .cart-summary {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-            animation: slideInRight 0.6s ease;
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 80px;
-            background: white;
-            border-radius: 20px;
-            animation: bounceIn 0.8s ease;
-        }
-
-        .empty-cart div {
-            font-size: 5rem;
-            animation: shake 0.5s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        /* Page Transitions */
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        footer {
-            background: #1a1a2e;
-            color: white;
-            text-align: center;
-            padding: 40px;
-            margin-top: 60px;
-            animation: fadeInUp 0.8s ease;
         }
 
         /* Keyframes */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -605,21 +412,10 @@
             }
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateX(50px);
+                transform: translateX(100px);
             }
             to {
                 opacity: 1;
@@ -645,36 +441,78 @@
             }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .products-section {
+            padding: 60px 5%;
+        }
+
+        .products-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 10px 28px;
+            margin: 0 8px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+        }
+
         @media (max-width: 768px) {
-            .cart-container {
-                grid-template-columns: 1fr;
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
             }
-            
-            .cart-item {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .cart-item-image {
-                margin: 0 auto;
-            }
-            
-            .quantity-controls {
-                justify-content: center;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
             .hero h1 {
                 font-size: 2rem;
-            }
-            
-            .filter-btn {
-                padding: 8px 18px;
-                margin: 0 5px;
-                font-size: 0.85rem;
             }
         }
     </style>
@@ -684,13 +522,18 @@
     <div class="loader">
         <div class="loader-content">
             <div class="loader-circle"></div>
-            <div class="loader-text">SHOPHUB</div>
+            <div class="loader-text">✨ SHOPHUB REWARDS ✨</div>
         </div>
     </div>
 
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo">🛍️ ShopHub</div>
+        <div class="logo">🛍️ ShopHub Rewards</div>
+        <div class="rewards-badge" onclick="showRewardsModal()">
+            <span class="coin-icon">🪙</span>
+            <span id="reward-points">0</span>
+            <span>Points</span>
+        </div>
         <div class="nav-links">
             <a href="#" onclick="showPage('home')">Home</a>
             <a href="#" onclick="showPage('products')">Products</a>
@@ -700,16 +543,45 @@
         </div>
     </nav>
 
+    <!-- Rewards Modal -->
+    <div id="rewards-modal" class="modal">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px;">🎁 Reward Store 🎁</h2>
+            <p style="margin-bottom: 20px;">You have <strong id="modal-points">0</strong> points</p>
+            <div class="reward-item" onclick="redeemReward('10% OFF Coupon', 100)">
+                <strong>🎫 10% OFF Coupon</strong>
+                <p>Get 10% discount on next purchase</p>
+                <small>Cost: 100 points</small>
+            </div>
+            <div class="reward-item" onclick="redeemReward('Free Shipping', 200)">
+                <strong>🚚 Free Shipping</strong>
+                <p>Free shipping on your next order</p>
+                <small>Cost: 200 points</small>
+            </div>
+            <div class="reward-item" onclick="redeemReward('$20 Gift Card', 500)">
+                <strong>💝 $20 Gift Card</strong>
+                <p>$20 credit for any purchase</p>
+                <small>Cost: 500 points</small>
+            </div>
+            <div class="reward-item" onclick="redeemReward('VIP Membership', 1000)">
+                <strong>👑 VIP Membership</strong>
+                <p>Exclusive deals and offers</p>
+                <small>Cost: 1000 points</small>
+            </div>
+            <button class="btn-primary" onclick="closeModal()" style="margin-top: 20px;">Close</button>
+        </div>
+    </div>
+
     <!-- Home Page -->
     <div id="home-page" class="page active">
         <div class="hero">
-            <h1>Welcome to ShopHub</h1>
-            <p>Discover amazing products at unbeatable prices</p>
-            <a href="#" onclick="showPage('products')" class="btn-primary">Shop Now →</a>
+            <h1>Welcome to ShopHub Rewards! 🎉</h1>
+            <p>Earn points on every purchase • Redeem amazing rewards</p>
+            <a href="#" onclick="showPage('products')" class="btn-primary">Start Shopping →</a>
         </div>
         
         <div class="products-section">
-            <h2>Featured Products</h2>
+            <h2>✨ Featured Products ✨</h2>
             <div class="products-grid" id="featured-products"></div>
         </div>
     </div>
@@ -730,52 +602,120 @@
 
     <!-- Cart Page -->
     <div id="cart-page" class="page">
-        <div class="cart-section">
+        <div class="products-section">
             <h2>Shopping Cart</h2>
             <div id="cart-content"></div>
         </div>
     </div>
 
     <footer>
-        <p>© 2024 ShopHub. All rights reserved. | Made with ❤️ for online shopping</p>
+        <p>© 2024 ShopHub Rewards | Earn points on every purchase! 🪙</p>
     </footer>
 
     <script>
         // Product Data
         const products = [
-            { id: 1, name: "Premium Wireless Headphones", price: 99.99, category: "electronics", icon: "🎧", featured: true },
-            { id: 2, name: "Smart Watch Pro", price: 199.99, category: "electronics", icon: "⌚", featured: true },
-            { id: 3, name: "Classic Denim Jacket", price: 79.99, category: "clothing", icon: "👕", featured: true },
-            { id: 4, name: "JavaScript: The Definitive Guide", price: 39.99, category: "books", icon: "📚", featured: true },
-            { id: 5, name: "Wireless Gaming Mouse", price: 49.99, category: "electronics", icon: "🖱️", featured: false },
-            { id: 6, name: "Running Shoes", price: 89.99, category: "clothing", icon: "👟", featured: false },
-            { id: 7, name: "4K Action Camera", price: 299.99, category: "electronics", icon: "📷", featured: false },
-            { id: 8, name: "Cotton T-Shirt", price: 24.99, category: "clothing", icon: "👕", featured: false },
-            { id: 9, name: "Python Crash Course", price: 34.99, category: "books", icon: "📖", featured: false },
-            { id: 10, name: "Bluetooth Speaker", price: 79.99, category: "electronics", icon: "🔊", featured: false }
+            { id: 1, name: "Premium Wireless Headphones", price: 99.99, category: "electronics", icon: "🎧", featured: true, points: 50 },
+            { id: 2, name: "Smart Watch Pro", price: 199.99, category: "electronics", icon: "⌚", featured: true, points: 100 },
+            { id: 3, name: "Classic Denim Jacket", price: 79.99, category: "clothing", icon: "👕", featured: true, points: 40 },
+            { id: 4, name: "JavaScript: The Definitive Guide", price: 39.99, category: "books", icon: "📚", featured: true, points: 20 },
+            { id: 5, name: "Wireless Gaming Mouse", price: 49.99, category: "electronics", icon: "🖱️", featured: false, points: 25 },
+            { id: 6, name: "Running Shoes", price: 89.99, category: "clothing", icon: "👟", featured: false, points: 45 },
+            { id: 7, name: "4K Action Camera", price: 299.99, category: "electronics", icon: "📷", featured: false, points: 150 },
+            { id: 8, name: "Cotton T-Shirt", price: 24.99, category: "clothing", icon: "👕", featured: false, points: 12 },
+            { id: 9, name: "Python Crash Course", price: 34.99, category: "books", icon: "📖", featured: false, points: 17 },
+            { id: 10, name: "Bluetooth Speaker", price: 79.99, category: "electronics", icon: "🔊", featured: false, points: 40 }
         ];
+
+        // Reward System
+        let rewardPoints = parseInt(localStorage.getItem('rewardPoints')) || 0;
+        let activeCoupon = localStorage.getItem('activeCoupon') || null;
+
+        function updateRewardPoints() {
+            document.getElementById('reward-points').textContent = rewardPoints;
+            if (document.getElementById('modal-points')) {
+                document.getElementById('modal-points').textContent = rewardPoints;
+            }
+            localStorage.setItem('rewardPoints', rewardPoints);
+        }
+
+        function addRewardPoints(points) {
+            rewardPoints += points;
+            updateRewardPoints();
+            
+            // Show reward notification
+            showRewardNotification(`+${points} points earned! 🪙`);
+            
+            // Create celebration effect
+            createConfetti();
+        }
+
+        function showRewardNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'reward-notification';
+            notification.innerHTML = `🎉 ${message}`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2500);
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+
+        function showRewardsModal() {
+            document.getElementById('rewards-modal').style.display = 'block';
+            document.getElementById('modal-points').textContent = rewardPoints;
+        }
+
+        function closeModal() {
+            document.getElementById('rewards-modal').style.display = 'none';
+        }
+
+        function redeemReward(rewardName, cost) {
+            if (rewardPoints >= cost) {
+                rewardPoints -= cost;
+                updateRewardPoints();
+                
+                if (rewardName === '10% OFF Coupon') {
+                    activeCoupon = '10% OFF';
+                    localStorage.setItem('activeCoupon', activeCoupon);
+                    showRewardNotification(`🎫 ${rewardName} activated! 10% off your next purchase!`);
+                } else if (rewardName === 'Free Shipping') {
+                    activeCoupon = 'FREE SHIPPING';
+                    localStorage.setItem('activeCoupon', activeCoupon);
+                    showRewardNotification(`🚚 ${rewardName} activated! Free shipping on next order!`);
+                } else {
+                    showRewardNotification(`🎁 ${rewardName} redeemed successfully!`);
+                }
+                
+                createConfetti();
+                closeModal();
+            } else {
+                alert(`Not enough points! You need ${cost - rewardPoints} more points.`);
+            }
+        }
 
         // Cart
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Update cart count with animation
         function updateCartCount() {
             const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const cartCountElem = document.getElementById('cart-count');
-            cartCountElem.textContent = total;
-            cartCountElem.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                cartCountElem.style.transform = 'scale(1)';
-            }, 300);
+            document.getElementById('cart-count').textContent = total;
         }
 
-        // Save cart
         function saveCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
         }
 
-        // Add to cart with animation
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existingItem = cart.find(item => item.id === productId);
@@ -788,9 +728,11 @@
             
             saveCart();
             
-            // Show notification
+            // Add reward points when adding to cart
+            addRewardPoints(product.points);
+            
             const notification = document.createElement('div');
-            notification.textContent = `✓ ${product.name} added to cart!`;
+            notification.textContent = `✓ ${product.name} added! +${product.points} points!`;
             notification.style.cssText = `
                 position: fixed;
                 top: 80px;
@@ -809,38 +751,38 @@
             setTimeout(() => notification.remove(), 2500);
         }
 
-        // Display products
         function displayProducts(containerId, productList) {
             const container = document.getElementById(containerId);
             if (!container) return;
             
             container.innerHTML = productList.map(product => `
                 <div class="product-card">
-                    <div class="product-image">${product.icon}</div>
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                        <div class="product-price">$${product.price.toFixed(2)}</div>
-                        <div class="product-category">${product.category}</div>
+                    <div class="reward-badge">
+                        <span>🪙</span> +${product.points}
+                    </div>
+                    <div class="product-image" style="height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                        ${product.icon}
+                    </div>
+                    <div class="product-info" style="padding: 20px;">
+                        <h3 class="product-title" style="font-size: 1.2rem; font-weight: 600;">${product.name}</h3>
+                        <div class="product-price" style="font-size: 1.5rem; color: #ff4757; font-weight: 700;">$${product.price.toFixed(2)}</div>
+                        <div class="product-category" style="color: #888; margin-bottom: 15px;">${product.category}</div>
                         <button class="add-to-cart" onclick="addToCart(${product.id})">
-                            Add to Cart 🛒
+                            Add to Cart 🛒 +${product.points}🪙
                         </button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Display featured products
         function displayFeatured() {
             const featured = products.filter(p => p.featured);
             displayProducts('featured-products', featured);
         }
 
-        // Filter products
         let currentFilter = 'all';
         function filterProducts(category) {
             currentFilter = category;
-            
-            // Update active button with animation
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.textContent.toLowerCase() === category || (category === 'all' && btn.textContent === 'All')) {
                     btn.classList.add('active');
@@ -848,79 +790,98 @@
                     btn.classList.remove('active');
                 }
             });
-            
             const filtered = category === 'all' ? products : products.filter(p => p.category === category);
             displayProducts('all-products', filtered);
         }
 
-        // Display cart
         function displayCart() {
             const cartContent = document.getElementById('cart-content');
             
             if (cart.length === 0) {
                 cartContent.innerHTML = `
-                    <div class="empty-cart">
-                        <div>🛒</div>
-                        <h3 style="margin: 20px 0 10px;">Your cart is empty</h3>
-                        <p>Looks like you haven't added any items yet</p>
-                        <br>
-                        <a href="#" onclick="showPage('products')" class="btn-primary">Browse Products →</a>
+                    <div style="text-align: center; padding: 80px; background: white; border-radius: 20px;">
+                        <div style="font-size: 5rem;">🛒</div>
+                        <h3 style="margin: 20px 0;">Your cart is empty</h3>
+                        <a href="#" onclick="showPage('products')" class="btn-primary">Start Shopping & Earn Points! 🪙</a>
                     </div>
                 `;
                 return;
             }
             
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.1;
-            const shipping = subtotal > 100 ? 0 : 10;
-            const total = subtotal + tax + shipping;
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let discount = 0;
+            
+            if (activeCoupon === '10% OFF') {
+                discount = subtotal * 0.1;
+            }
+            
+            const tax = (subtotal - discount) * 0.1;
+            let shipping = subtotal > 100 ? 0 : 10;
+            
+            if (activeCoupon === 'FREE SHIPPING') {
+                shipping = 0;
+            }
+            
+            const total = subtotal - discount + tax + shipping;
             
             cartContent.innerHTML = `
-                <div class="cart-container">
-                    <div class="cart-items">
+                <div style="display: grid; grid-template-columns: 1fr 350px; gap: 30px;">
+                    <div style="background: white; border-radius: 20px; padding: 20px;">
                         ${cart.map(item => `
-                            <div class="cart-item">
-                                <div class="cart-item-image">${item.icon}</div>
-                                <div class="cart-item-details">
-                                    <h3 style="margin-bottom: 5px;">${item.name}</h3>
-                                    <div class="cart-item-price" style="color: #ff4757; font-weight: 700;">$${item.price.toFixed(2)}</div>
+                            <div style="display: grid; grid-template-columns: auto 1fr auto auto; gap: 20px; align-items: center; padding: 20px; border-bottom: 1px solid #eee;">
+                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">${item.icon}</div>
+                                <div>
+                                    <h3>${item.name}</h3>
+                                    <div style="color: #ff4757; font-weight: 700;">$${item.price.toFixed(2)}</div>
+                                    <small style="color: #FFD700;">+${item.points} points each</small>
                                 </div>
-                                <div class="quantity-controls" style="display: flex; align-items: center; gap: 10px;">
-                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)" style="background: #f0f0f0; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer;">-</button>
                                     <span style="min-width: 30px; text-align: center; font-weight: 600;">${item.quantity}</span>
-                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)" style="background: #f0f0f0; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer;">+</button>
                                 </div>
-                                <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                                <button class="remove-btn" onclick="removeFromCart(${item.id})" style="background: #ff4757; color: white; border: none; padding: 8px 18px; border-radius: 10px; cursor: pointer;">Remove</button>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="cart-summary">
-                        <h3 style="margin-bottom: 20px;">Order Summary</h3>
-                        <div class="summary-row" style="display: flex; justify-content: space-between; margin: 15px 0;">
+                    <div style="background: white; border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 100px;">
+                        <h3>Order Summary</h3>
+                        ${activeCoupon ? `<div style="background: #FFD700; padding: 10px; border-radius: 10px; margin: 10px 0; text-align: center;">
+                            🎉 ${activeCoupon} Applied!
+                        </div>` : ''}
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0;">
                             <span>Subtotal:</span>
                             <span>$${subtotal.toFixed(2)}</span>
                         </div>
-                        <div class="summary-row" style="display: flex; justify-content: space-between; margin: 15px 0;">
+                        ${discount > 0 ? `
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0; color: green;">
+                            <span>Discount:</span>
+                            <span>-$${discount.toFixed(2)}</span>
+                        </div>
+                        ` : ''}
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0;">
                             <span>Tax (10%):</span>
                             <span>$${tax.toFixed(2)}</span>
                         </div>
-                        <div class="summary-row" style="display: flex; justify-content: space-between; margin: 15px 0;">
+                        <div style="display: flex; justify-content: space-between; margin: 15px 0;">
                             <span>Shipping:</span>
                             <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span>
                         </div>
-                        <div class="summary-row total-row" style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px solid #eee; font-size: 1.2rem; font-weight: 700;">
+                        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 2px solid #eee; font-size: 1.2rem; font-weight: 700;">
                             <span>Total:</span>
                             <span style="color: #ff4757;">$${total.toFixed(2)}</span>
                         </div>
+                        <div style="margin-top: 20px; background: linear-gradient(135deg, #FFD700, #FFA500); padding: 15px; border-radius: 10px; text-align: center;">
+                            <div>🪙 Points to earn: ${cart.reduce((sum, item) => sum + (item.points * item.quantity), 0)}</div>
+                        </div>
                         <button class="btn-primary" onclick="checkout()" style="width: 100%; margin-top: 20px;">
-                            Proceed to Checkout →
+                            Checkout & Earn Points! 🪙
                         </button>
                     </div>
                 </div>
             `;
         }
 
-        // Update quantity
         function updateQuantity(productId, change) {
             const item = cart.find(i => i.id === productId);
             if (item) {
@@ -935,31 +896,34 @@
             }
         }
 
-        // Remove from cart
         function removeFromCart(productId) {
             cart = cart.filter(item => item.id !== productId);
             saveCart();
             displayCart();
-            updateCartCount();
         }
 
-        // Checkout with celebration
         function checkout() {
             if (cart.length === 0) {
                 alert('Your cart is empty!');
                 return;
             }
             
-            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            alert(`🎉 Thank you for your purchase!\n\nTotal: $${total.toFixed(2)}\n\nYour order has been placed successfully!`);
+            const totalPoints = cart.reduce((sum, item) => sum + (item.points * item.quantity), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            addRewardPoints(totalPoints);
+            createConfetti();
+            
+            alert(`🎉 Thank you for your purchase!\n\nTotal: $${subtotal.toFixed(2)}\nPoints Earned: +${totalPoints} 🪙\n\nTotal Points: ${rewardPoints}`);
+            
             cart = [];
+            activeCoupon = null;
+            localStorage.removeItem('activeCoupon');
             saveCart();
             displayCart();
-            updateCartCount();
             showPage('home');
         }
 
-        // Show page with animation
         function showPage(pageName) {
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
@@ -980,6 +944,7 @@
         // Initialize
         displayFeatured();
         updateCartCount();
+        updateRewardPoints();
     </script>
 </body>
 </html>
