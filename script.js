@@ -1,62 +1,45 @@
-// ----- SPLASH -----
-const splash = document.getElementById('splash');
-const pages = document.querySelectorAll('.page');
-const navLinks = document.querySelectorAll('.nav-links a');
-const navMenu = document.getElementById('navLinks');
-let cartCount = 0;
-
+// 1. Splash Screen Timeout
 window.addEventListener('load', () => {
     setTimeout(() => {
-        splash.style.opacity = 0;
-        setTimeout(() => {
-            splash.style.display = 'none';
-            openPage('home-page');
-        }, 800);
+        const splash = document.getElementById('splash');
+        splash.style.opacity = '0';
+        setTimeout(() => splash.style.display = 'none', 500);
     }, 2000);
 });
+
+// 2. Start Shopping Navigation
 function startShopping() {
-    const startScreen = document.getElementById('start-screen');
-    startScreen.style.opacity = '0';
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('home-page').style.display = 'block';
+    
+    // Show promo modal after entry
     setTimeout(() => {
-        startScreen.style.display = 'none';
-        document.getElementById('home-page').classList.add('active'); // show homepage
-    }, 800); // match fade out duration
+        document.getElementById('promoModal').style.display = 'flex';
+    }, 1500);
 }
 
-// ----- NAVIGATION -----
-function openPage(pageId){
-    pages.forEach(p=>p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
+// 3. Page Switching Logic
+function openPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.style.display = 'none');
+    document.getElementById(pageId).style.display = 'block';
+    
+    // Ensure shop page is visible if clicked
+    if(pageId === 'shop-page') {
+        document.getElementById('home-page').style.display = 'block'; 
+        window.scrollTo(0, 800); // Scrolls down to products
+    }
 }
 
-// ----- MOBILE MENU -----
-function toggleMenu(){
-    navMenu.classList.toggle('show');
+// 4. Modal Controls
+function closeModal() {
+    document.getElementById('promoModal').style.display = 'none';
 }
 
-// ----- CART -----
-function addCart(){
-    cartCount++;
-    document.getElementById('cart-count').textContent = cartCount;
-}
-
-// ----- CAROUSEL -----
-let currentSlide = 0;
-const slides = document.querySelectorAll('.carousel-item');
-
-function showSlide(index){
-    slides.forEach(s=>s.style.display='none');
-    slides[index].style.display='block';
-}
-
-function moveSlide(step){
-    currentSlide += step;
-    if(currentSlide >= slides.length) currentSlide = 0;
-    if(currentSlide < 0) currentSlide = slides.length-1;
-    showSlide(currentSlide);
-}
-
-if(slides.length>0){
-    showSlide(0);
-    setInterval(()=>moveSlide(1),5000);
+// 5. Simple Cart Counter
+let count = 0;
+function addCart() {
+    count++;
+    document.getElementById('cart-count').innerText = count;
+    alert("Added to your quote request!");
 }
