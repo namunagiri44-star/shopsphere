@@ -3,178 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopSphere | E-commerce</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>ShopSphere | Premium E-commerce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Inline animations for splash and modal */
-        @keyframes fadeZoomIn {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes fadeZoomOut {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.5); }
-        }
-
-        .animate-fade-zoom-in {
-            animation: fadeZoomIn 1s ease forwards;
-        }
-
-        .animate-fade-zoom-out {
-            animation: fadeZoomOut 0.5s ease forwards;
-        }
-
-        .modal-content img {
-            width: 100px;
-            margin-bottom: 10px;
-            animation: fadeZoomIn 1s ease;
-        }
-
-        /* Ensure images load properly */
-        img {
-            object-fit: cover;
-            display: block;
-        }
-    </style>
 </head>
 <body>
 
     <!-- 1. Splash Screen -->
     <div id="splash">
-        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop&crop=center" 
-             alt="ShopSphere Logo - Modern Shopping" 
-             style="width:200px; border-radius:20px;"
-             class="animate-fade-zoom-in"
+        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop&crop=center" 
+             alt="ShopSphere - Premium Shopping Experience" 
              loading="eager">
     </div>
 
-    <!-- 2. Start Screen -->
+    <!-- 2. Start Screen (Hero) -->
     <div id="start-screen">
-        <button onclick="startShopping()">Start Shopping</button>
+        <div class="hero-content">
+            <h1>ShopSphere</h1>
+            <p class="hero-subtitle">Discover Premium Products</p>
+            <button class="cta-button" onclick="startShopping()">
+                🚀 Start Shopping
+            </button>
+        </div>
     </div>
 
     <!-- 3. Home Page -->
     <div id="home-page" class="page">
-        <header>
-            <h2>Welcome to ShopSphere</h2>
-            <div id="cart">Cart: <span id="cart-count">0</span></div>
-        </header>
+        <div class="container">
+            <header>
+                <h2 class="page-title">Welcome to ShopSphere</h2>
+                <div class="cart-badge" onclick="toggleCartView()">
+                    <span>Quote:</span>
+                    <span id="cart-count">0</span>
+                </div>
+            </header>
 
-        <section id="featured-products">
-            <h3>Featured Products</h3>
-            <div class="products">
-                <div class="product">
-                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop&crop=center" 
-                         alt="Premium Leather Handbag" 
-                         loading="lazy">
-                    <p>Premium Leather Bag</p>
-                    <button onclick="addCart()">Add to Quote</button>
+            <section id="featured-products">
+                <h3 class="section-title">✨ Featured Products</h3>
+                <div class="products">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop&crop=center" 
+                             alt="Premium Leather Handbag" class="product-image" loading="lazy">
+                        <h3 class="product-title">Premium Leather Bag</h3>
+                        <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop&crop=center" 
+                             alt="Professional Running Shoes" class="product-image" loading="lazy">
+                        <h3 class="product-title">Pro Running Shoes</h3>
+                        <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop&crop=center" 
+                             alt="Smart Fitness Watch" class="product-image" loading="lazy">
+                        <h3 class="product-title">Smart Watch</h3>
+                        <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                    </div>
                 </div>
-                <div class="product">
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop&crop=center" 
-                         alt="Professional Running Shoes" 
-                         loading="lazy">
-                    <p>Professional Running Shoes</p>
-                    <button onclick="addCart()">Add to Quote</button>
-                </div>
-                <div class="product">
-                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=300&fit=crop&crop=center" 
-                         alt="Smart Fitness Watch" 
-                         loading="lazy">
-                    <p>Smart Fitness Watch</p>
-                    <button onclick="addCart()">Add to Quote</button>
-                </div>
+            </section>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <button class="cta-button" onclick="openPage('shop-page')" style="max-width: 300px;">
+                    🛒 Explore Full Shop
+                </button>
             </div>
-        </section>
-<!-- Update product divs -->
-<div class="product-card">
-    <img src="..." alt="..." class="product-image">
-    <h3 class="product-title">Premium Leather Bag</h3>
-    <button class="add-to-cart-btn">Add to Quote</button>
-</div>
-
-<!-- Update buttons -->
-<button class="cta-button" onclick="startShopping()">🚀 Start Shopping</button>
-
-<!-- Update headers -->
-<h2 class="page-title">Welcome to ShopSphere</h2>
-<div class="cart-badge">
-    <span>Quote:</span>
-    <span id="cart-count">0</span>
-</div>
-        <button onclick="openPage('shop-page')">Go to Shop</button>
+        </div>
     </div>
 
     <!-- 4. Shop Page -->
     <div id="shop-page" class="page">
-        <header>
-            <h2>Full Shop Collection</h2>
-            <button onclick="openPage('home-page')">← Back Home</button>
-        </header>
-        <section class="products">
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop&crop=center" 
-                     alt="Wireless Noise-Cancelling Headphones" 
-                     loading="lazy">
-                <p>Wireless Headphones</p>
-                <button onclick="addCart()">Add to Quote</button>
-            </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop&crop=center" 
-                     alt="Designer Sunglasses" 
-                     loading="lazy">
-                <p>Designer Sunglasses</p>
-                <button onclick="addCart()">Add to Quote</button>
-            </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=300&h=300&fit=crop&crop=center" 
-                     alt="Wireless Earbuds" 
-                     loading="lazy">
-                <p>Wireless Earbuds</p>
-                <button onclick="addCart()">Add to Quote</button>
-            </div>
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1608145402667-6c2a4947e6a6?w=300&h=300&fit=crop&crop=center" 
-                     alt="Smartphone Case" 
-                     loading="lazy">
-                <p>Premium Phone Case</p>
-                <button onclick="addCart()">Add to Quote</button>
-            </div>
-        </section>
+        <div class="container">
+            <header>
+                <h2 class="page-title">Full Collection</h2>
+                <button class="back-btn" onclick="openPage('home-page')">
+                    ← Back to Home
+                </button>
+            </header>
+
+            <section class="products">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop&crop=center" 
+                         alt="Wireless Noise-Cancelling Headphones" class="product-image" loading="lazy">
+                    <h3 class="product-title">Wireless Headphones</h3>
+                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop&crop=center" 
+                         alt="Designer Sunglasses" class="product-image" loading="lazy">
+                    <h3 class="product-title">Designer Sunglasses</h3>
+                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=400&h=400&fit=crop&crop=center" 
+                         alt="Wireless Earbuds" class="product-image" loading="lazy">
+                    <h3 class="product-title">Wireless Earbuds</h3>
+                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1608145402667-6c2a4947e6a6?w=400&h=400&fit=crop&crop=center" 
+                         alt="Premium Smartphone Case" class="product-image" loading="lazy">
+                    <h3 class="product-title">Phone Case</h3>
+                    <button class="add-to-cart-btn" onclick="addCart()">Add to Quote</button>
+                </div>
+            </section>
+        </div>
     </div>
 
     <!-- 5. Promo Modal -->
     <div id="promoModal">
         <div class="modal-content">
             <img src="https://images.unsplash.com/photo-1571115628310-6eabf7bf9e21?w=200&h=200&fit=crop&crop=center" 
-                 alt="Special Offer Discount" 
-                 loading="lazy">
-            <h3>🎉 Special Launch Offer!</h3>
-            <p>Get <strong>15% OFF</strong> your first order with code: <code>LAUNCH15</code></p>
-            <button onclick="closeModal()">Got it! 🎁</button>
+                 alt="Special Offer" loading="lazy">
+            <h3 class="modal-title">🎉 Launch Special!</h3>
+            <p>Get <strong>15% OFF</strong> first order<br>
+               Use code: <code>LAUNCH15</code></p>
+            <button class="cta-button" onclick="closeModal()" style="width: 100%; margin-top: 1rem;">
+                Claim Offer 🎁
+            </button>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Add fade-zoom-out to splash when hiding
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const splashImg = document.querySelector('#splash img');
-                splashImg.classList.add('animate-fade-zoom-out');
-                setTimeout(() => {
-                    document.getElementById('splash').style.display = 'none';
-                    document.getElementById('start-screen').style.display = 'flex';
-                }, 500);
-            }, 2500);
-        });
-
-        // Show promo modal after 3 seconds
-        setTimeout(() => {
-            document.getElementById('promoModal').style.display = 'flex';
-        }, 4000);
-    </script>
 </body>
 </html>
